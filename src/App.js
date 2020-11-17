@@ -15,40 +15,42 @@ import AddExercise from './components/AddExercise'
 import AddTrainee from './components/AddTrainee'
 import Feed from './components/Feed'
 
+import {db, storage, auth} from './firebase'
 
 const App = () => {
+  const [user, setUser] = useState();
 
   const padding = {
     padding: 5
   }
 
+
   return (
     <Router>
       <div>
       <Link style={padding} to="/">Feed</Link>
-      <Link style={padding} to="/notes">notes</Link>
       <Link style={padding} to="/users">users</Link>
-      <Link style={padding} to="/login">login</Link>
-      <Link style={padding} to="/signup">signup</Link>
       <Link style={padding} to="/info">UserInfo</Link>
       <Link style={padding} to="/createpost">createpost</Link>
       <Link style={padding} to="/profile">profile</Link>
       <Link style={padding} to="/calendar">calendar</Link>
       <Link style={padding} to="/addexercise">addexercise</Link>
       <Link style={padding} to="/addtrainee">addTrainee</Link>
+      {user
+      ? <em>{user} logged in</em>
+      : <><Link style={padding} to="/login">login</Link>
+        <Link style={padding} to="/signup">signup</Link></>
+    }
       </div>
       <Switch>
-        <Route path="/notes">
-        <h1> Smth will be here</h1>
-        </Route>
         <Route path="/users">
           <h2>Users should be here</h2>
         </Route>
         <Route path="/login">
-        <LogIn/>
+        <LogIn setUser={setUser}/>
         </Route>
         <Route path="/signup">
-        <SignUp/>
+        <SignUp setUser={setUser} />
         </Route>
         <Route path="/info">
         <UserInfo/>

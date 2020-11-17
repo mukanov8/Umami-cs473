@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
+import {
+  useHistory
+} from 'react-router-dom'
+import {db} from '../firebase'
 
-
-
-const App = () => {
+const Login = ({setUser}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const history = useHistory()
 
   const handleEmailChange = (event) =>{
     setEmail(event.target.value);
@@ -14,29 +17,35 @@ const App = () => {
   }
 
   
-  const addContact = (event)=>{
+  const onSubmit = (event) => {
     event.preventDefault()
-
+    db.collection('users').where('email','==',email).get().then((users)=>{
+      users.docs.forEach(user=>{
+        if(user.data().password===password){
+          console.log(user.data().name)
+          setUser(user.data().name)
+          history.push('/')
+          return
+        }
+      })
+      alert('password or email is incorrect')
+    })
   }
 
   return (
     <div>
       <h1>Log In</h1>
-      <form onSubmit={addContact}> 
+      <form onSubmit={onSubmit}> 
         <div>
-        <input value={email} onChange={handleEmailChange} />
+        Email: <input value={email} onChange={handleEmailChange} />
         </div>
         <div>
-        <input value={password} onChange={handlePasswordChange} />
+        Password: <input value={password} onChange={handlePasswordChange} />
         </div>
         <button  type="submit">Log In</button>
       </form>
-      <div>
-        <p>Frontend - checks email validity, sends email and password to backend</p>
-        <p>Backend - checks whether the email and password are correct. If correct sends key(smth) to log in</p>
-      </div>
     </div>
   )
 }
 
-export default App;
+export default Login;

@@ -1,15 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import {db} from '../firebase'
 
-const App = () => {
-  
+const AddTrainee = () => {
+  const [users, setUsers] = useState();
+
+  useEffect(()=>{
+    db.collection('users').get().then(users=>{
+      setUsers(users.docs.map(user=>({...user.data(),id:user.id})))
+    })
+  },[])
+
   return (
     <div>
       <h1>Add Trainees</h1>
-      <p>Backend sends all people with information about them</p>
-      <p>Fronent - sends signal to backend to connect certain people</p>
+      <ul>
+        { users ? users.map(user=>(<li key={user.id}>{user.name}</li>))
+                : <></>
+        }
+      </ul>
       
       </div>
   )
 }
 
-export default App;
+export default AddTrainee;

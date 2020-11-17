@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
+import {db} from '../firebase'
+import {
+  useHistory
+} from "react-router-dom"
 
 
-
-const App = () => {
+const SignUp = ({setUser}) => {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
-
+  const history = useHistory();
+  const handleNameChange = (event) =>{
+    setName(event.target.value);
+  }
   const handleEmailChange = (event) =>{
     setEmail(event.target.value);
   }
@@ -18,32 +25,39 @@ const App = () => {
   }
 
   
-  const addContact = (event)=>{
+  const addUser = (event)=>{
     event.preventDefault()
-
+    if (password!==password2){
+      alert("Passwords are not the same");
+      return
+    }
+    db.collection('users').add({name,password,email});
+    setUser(name)
+    history.push('/login');
   }
 
   return (
     <div>
-      <h1>Log In</h1>
-      <form onSubmit={addContact}> 
+      <h1>Sign Up</h1>
+      <form onSubmit={addUser}> 
         <div>
-        <input value={email} onChange={handleEmailChange} />
+        Name: <input value={name} onChange={handleNameChange} />
         </div>
         <div>
-        <input value={password} onChange={handlePasswordChange} />
+        Email: <input value={email} onChange={handleEmailChange} />
         </div>
         <div>
-        <input value={password2} onChange={handlePasswordChange2} />
+        Password: <input value={password} onChange={handlePasswordChange} />
         </div>
-        <button  type="submit">Log In</button>
+        <div>
+        Repeat Password: <input value={password2} onChange={handlePasswordChange2} />
+        </div>
+        <button  type="submit">Sign Up</button>
       </form>
-      <div>
-        <p>Frontend - checks email and password validity, sends email and password to backend</p>
-        <p>Backend - checks whether the email and password are correct. Saves the info to backend</p>
-      </div>
+      <h2>Needs to show that the registration was successful</h2>
+      <h2> Passowrds should be checked for equality by the UI</h2>
     </div>
   )
 }
 
-export default App;
+export default SignUp;
