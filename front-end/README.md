@@ -9,3 +9,7 @@ Project pitch: https://docs.google.com/presentation/d/1j_aOEr-9Q6buFGe0qfr5t1wXg
 Intructions:
 - Run 'npm install' command if you do not have npm installed or 'npm install npm@latest -g' to update it.
 - Run 'npm start'
+
+To confirm your Node/NPM installation, run the following commands on your terminal:
+- 'node -v'
+- 'npm -v'
