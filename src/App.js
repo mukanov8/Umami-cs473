@@ -15,7 +15,6 @@ import AddExercise from './components/AddExercise'
 import AddTrainee from './components/AddTrainee'
 import Feed from './components/Feed'
 
-import {db, storage, auth} from './firebase'
 
 const App = () => {
   const [user, setUser] = useState();
@@ -37,7 +36,7 @@ const App = () => {
       <Link style={padding} to="/addexercise">addexercise</Link>
       <Link style={padding} to="/addtrainee">addTrainee</Link>
       {user
-      ? <em>{user} logged in</em>
+      ? <em>{user.name} logged in</em>
       : <><Link style={padding} to="/login">login</Link>
         <Link style={padding} to="/signup">signup</Link></>
     }
@@ -68,7 +67,7 @@ const App = () => {
         <AddExercise/>
         </Route>
         <Route path="/addtrainee">
-        <AddTrainee/>
+        <AddTrainee user={user}/>
         </Route>
         <Route path="/">
         <Feed/>

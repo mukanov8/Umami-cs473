@@ -23,7 +23,7 @@ const Login = ({setUser}) => {
       users.docs.forEach(user=>{
         if(user.data().password===password){
           console.log(user.data().name)
-          setUser(user.data().name)
+          setUser({...user.data(),id:user.id})
           history.push('/')
           return
         }

@@ -31,8 +31,13 @@ const SignUp = ({setUser}) => {
       alert("Passwords are not the same");
       return
     }
-    db.collection('users').add({name,password,email});
-    setUser(name)
+    db.collection('users').add({name,password,email}).then(user=>{
+      user.get().then(u=>{
+        console.log(u.data())
+        setUser({...u.data(),id:u.id})
+      })
+    });
+    
     history.push('/login');
   }
 
