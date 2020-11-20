@@ -57,6 +57,10 @@ const AddExercise= ({user}) => {
   };
 
   const { monday, tuesday, wednesday,thursday,friday,saturday,sunday } = day;
+
+
+
+const App = () => {
   return (
     
     <div>
@@ -203,6 +207,7 @@ const AddExercise= ({user}) => {
           <MenuItem value={"squats"}>Squats</MenuItem>
         </Select>
       </FormControl>
+
 
     </div>
   );
