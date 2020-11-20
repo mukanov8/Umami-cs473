@@ -64,7 +64,7 @@ const App = () => {
         <Calendar/>
         </Route>
         <Route path="/addexercise">
-        <AddExercise/>
+        <AddExercise userid={user}/>
         </Route>
         <Route path="/addtrainee">
         <AddTrainee user={user}/>
