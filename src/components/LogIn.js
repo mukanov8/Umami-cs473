@@ -4,24 +4,33 @@ import {
 } from 'react-router-dom'
 import {db} from '../firebase'
 
-const Login = ({setUser}) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const history = useHistory()
+const useField = (type)=>{
+  const [value,setValue] = useState('')
+  const onChange =(event)=>{
+    setValue(event.target.value)
+  }
 
-  const handleEmailChange = (event) =>{
-    setEmail(event.target.value);
+  return {
+    type,
+    value,
+    onChange
   }
-  const handlePasswordChange = (event) =>{
-    setPassword(event.target.value);
-  }
+}
+
+const Login = ({setUser}) => {
+
+  
+
+  const history = useHistory()
+  const email = useField('text')
+  const password = useField('password')
 
   
   const onSubmit = (event) => {
     event.preventDefault()
-    db.collection('users').where('email','==',email).get().then((users)=>{
+    db.collection('users').where('email','==',email.value).get().then((users)=>{
       users.docs.forEach(user=>{
-        if(user.data().password===password){
+        if(user.data().password===password.value){
           console.log(user.data().name)
           setUser({...user.data(),id:user.id})
           history.push('/')
@@ -37,10 +46,10 @@ const Login = ({setUser}) => {
       <h1>Log In</h1>
       <form onSubmit={onSubmit}> 
         <div>
-        Email: <input value={email} onChange={handleEmailChange} />
+        Email: <input {...email} />
         </div>
         <div>
-        Password: <input value={password} onChange={handlePasswordChange} />
+        Password: <input {...password} />
         </div>
         <button  type="submit">Log In</button>
       </form>

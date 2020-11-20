@@ -4,34 +4,39 @@ import {
   useHistory
 } from "react-router-dom"
 
+const useField = (type)=>{
+  const [value,setValue] = useState('')
+  const onChange =(event)=>{
+    setValue(event.target.value)
+  }
+
+  return {
+    type,
+    value,
+    onChange
+  }
+}
 
 const SignUp = ({setUser}) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [password2, setPassword2] = useState('')
+  const name = useField('text')
+  const email = useField('text')
+  const password = useField('password')
+  const password2 = useField('password')
   const history = useHistory();
-  const handleNameChange = (event) =>{
-    setName(event.target.value);
-  }
-  const handleEmailChange = (event) =>{
-    setEmail(event.target.value);
-  }
-  const handlePasswordChange = (event) =>{
-    setPassword(event.target.value);
-  }
-  const handlePasswordChange2 = (event) =>{
-    setPassword2(event.target.value);
-  }
 
   
   const addUser = (event)=>{
     event.preventDefault()
-    if (password!==password2){
+    if (password.value!==password2.value){
       alert("Passwords are not the same");
       return
     }
-    db.collection('users').add({name,password,email}).then(user=>{
+    const obj = {
+      name: name.value,
+      password:password.value,
+      email:email.value
+    }
+    db.collection('users').add(obj).then(user=>{
       user.get().then(u=>{
         console.log(u.data())
         setUser({...u.data(),id:u.id})
@@ -46,16 +51,16 @@ const SignUp = ({setUser}) => {
       <h1>Sign Up</h1>
       <form onSubmit={addUser}> 
         <div>
-        Name: <input value={name} onChange={handleNameChange} />
+        Name: <input {...name} />
         </div>
         <div>
-        Email: <input value={email} onChange={handleEmailChange} />
+        Email: <input {...email} />
         </div>
         <div>
-        Password: <input value={password} onChange={handlePasswordChange} />
+        Password: <input {...password} />
         </div>
         <div>
-        Repeat Password: <input value={password2} onChange={handlePasswordChange2} />
+        Repeat Password: <input {...password2} />
         </div>
         <button  type="submit">Sign Up</button>
       </form>
