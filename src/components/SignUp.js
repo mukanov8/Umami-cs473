@@ -1,73 +1,72 @@
-import React, { useState } from 'react'
-import {db} from '../firebase'
-import {
-  useHistory
-} from "react-router-dom"
+import React, { useState } from "react";
+import { db } from "../firebase";
+import { useHistory } from "react-router-dom";
 
-const useField = (type)=>{
-  const [value,setValue] = useState('')
-  const onChange =(event)=>{
-    setValue(event.target.value)
-  }
+const useField = (type) => {
+  const [value, setValue] = useState("");
+  const onChange = (event) => {
+    setValue(event.target.value);
+  };
 
   return {
     type,
     value,
-    onChange
-  }
-}
+    onChange,
+  };
+};
 
-const SignUp = ({setUser}) => {
-  const name = useField('text')
-  const email = useField('text')
-  const password = useField('password')
-  const password2 = useField('password')
+const SignUp = ({ setUser }) => {
+  const name = useField("text");
+  const email = useField("text");
+  const password = useField("password");
+  const password2 = useField("password");
   const history = useHistory();
 
-  
-  const addUser = (event)=>{
-    event.preventDefault()
-    if (password.value!==password2.value){
+  const addUser = (event) => {
+    event.preventDefault();
+    if (password.value !== password2.value) {
       alert("Passwords are not the same");
-      return
+      return;
     }
     const obj = {
       name: name.value,
-      password:password.value,
-      email:email.value
-    }
-    db.collection('users').add(obj).then(user=>{
-      user.get().then(u=>{
-        console.log(u.data())
-        setUser({...u.data(),id:u.id})
-      })
-    });
-    
-    history.push('/login');
-  }
+      password: password.value,
+      email: email.value,
+    };
+    db.collection("users")
+      .add(obj)
+      .then((user) => {
+        user.get().then((u) => {
+          console.log(u.data());
+          setUser({ ...u.data(), id: u.id });
+        });
+      });
+
+    history.push("/login");
+  };
 
   return (
     <div>
       <h1>Sign Up</h1>
-      <form onSubmit={addUser}> 
+      <form onSubmit={addUser}>
         <div>
-        Name: <input {...name} />
+          Name: <input {...name} />
         </div>
         <div>
-        Email: <input {...email} />
+          Email: <input {...email} />
         </div>
         <div>
-        Password: <input {...password} />
+          Password: <input {...password} />
         </div>
         <div>
-        Repeat Password: <input {...password2} />
+          Repeat Password: <input {...password2} />
         </div>
-        <button  type="submit">Sign Up</button>
+        <button type="submit">Sign Up</button>
       </form>
       <h2>Needs to show that the registration was successful</h2>
       <h2> Passowrds should be checked for equality by the UI</h2>
     </div>
-  )
-}
+  );
+};
 
 export default SignUp;

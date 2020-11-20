@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const App = () => {
-  
   return (
     <div>
       <h1>Add Exercise</h1>
@@ -12,10 +11,9 @@ const App = () => {
         <li>end time</li>
         <li>string - what exercise</li>
       </ul>
-      <h2>Backend - saves the info</h2> 
-      
-      </div>
-  )
-}
+      <h2>Backend - saves the info</h2>
+    </div>
+  );
+};
 
 export default App;
