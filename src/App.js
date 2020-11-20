@@ -6,7 +6,9 @@ import {
   Switch,
   Route,
   Link,
+  useHistory,
   useParams,
+  Redirect,
 } from "react-router-dom";
 import LogIn from "./components/LogIn";
 import SignUp from "./components/SignUp";
@@ -76,26 +78,24 @@ const App = () => {
           <SignUp setUser={setUser} />
         </Route>
         <Route path="/info">
-          <UserInfo />
+          {user ? <UserInfo /> : <Redirect to="/login" />}
         </Route>
         <Route path="/profile">
-          <Profile />
+          {user ? <Profile /> : <Redirect to="/login" />}
         </Route>
         <Route path="/createpost">
-          <CreatePost />
+          {user ? <CreatePost user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/calendar">
-          <Calendar />
+          {user ? <Calendar /> : <Redirect to="/login" />}
         </Route>
         <Route path="/addexercise">
-          <AddExercise />
+          {user ? <AddExercise /> : <Redirect to="/login" />}
         </Route>
         <Route path="/addtrainee">
-          <AddTrainee user={user} />
+          {user ? <AddTrainee user={user} /> : <Redirect to="/login" />}
         </Route>
-        <Route path="/">
-          <Feed />
-        </Route>
+        <Route path="/">{user ? <Feed /> : <Redirect to="/login" />}</Route>
       </Switch>
 
       <div>
