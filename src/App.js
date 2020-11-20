@@ -87,7 +87,7 @@ const App = () => {
           {user ? <CreatePost user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/calendar">
-          {user ? <Calendar /> : <Redirect to="/login" />}
+          {user ? <Calendar user={user}/> : <Redirect to="/login" />}
         </Route>
         <Route path="/addexercise">
           {user ? <AddExercise user={user}/> : <Redirect to="/login" />}

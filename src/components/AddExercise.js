@@ -10,6 +10,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import { db } from "../firebase";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -42,6 +44,7 @@ const AddExercise= ({user}) => {
   const finhour=useField('hour')
   const finmin=useField('minute')
   const exercise=useField('exercise')
+  const history = useHistory()
   const [day, setState] = React.useState({
     monday: false,
     tuesday: false,
@@ -52,6 +55,38 @@ const AddExercise= ({user}) => {
     sunday: false,
   });
 
+
+  const submitExercise = (event) => {
+    event.preventDefault();
+    if (day.monday==false&&day.tuesday==false&&day.wednesday==false&&day.thursday==false&&day.friday==false&&day.saturday==false&&day.sunday==false) {
+      alert("At least one day of the week must be selected.");
+      history.push("/addexercise");
+      return;
+    }
+    if (starthour.value==""||startmin.value==""||finhour.value==""||finmin.value==""||exercise.value=="") {
+      alert("Fields must not be left empty.");
+      history.push("/addexercise");
+      return;
+    }
+    if (starthour.value==finhour.value||starthour.min==finhour.min) {
+      alert("You should not exercise over 24 hours.");
+      history.push("/addexercise");
+      return;
+    }
+    db.collection("exercises").add({
+      userid:user.id,
+      day: day,
+      exercise: exercise.value,
+      starthour: starthour.value,
+      startmin: startmin.value,
+      finhour: finhour.value,
+      finmin: finmin.value
+    })
+
+    history.push("/");
+
+  };
+
   const handleChange = (event) => {
     setState({ ...day, [event.target.name]: event.target.checked });
   };
@@ -61,7 +96,7 @@ const AddExercise= ({user}) => {
     
     <div>
       <FormControl component="fieldset" className={classes.checkControl}>
-        <FormLabel component="legend">Assign responsibility</FormLabel>
+        <FormLabel component="legend">Register an exercise plan</FormLabel>
         <FormGroup>
           <FormControlLabel
             control={<Checkbox checked={monday} onChange={handleChange} name="monday" />}
@@ -92,7 +127,6 @@ const AddExercise= ({user}) => {
             label="Sunday"
           />
         </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Starting Hour</InputLabel>
@@ -203,9 +237,14 @@ const AddExercise= ({user}) => {
           <MenuItem value={"squats"}>Squats</MenuItem>
         </Select>
       </FormControl>
+      
 
+      
+      <form onSubmit={submitExercise}>
+        <button type="submit">Submit</button>
+      </form>
 
     </div>
   )
 }
-export default AddExercise
+export default AddExercise;
