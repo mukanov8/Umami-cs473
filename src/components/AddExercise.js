@@ -57,10 +57,6 @@ const AddExercise= ({user}) => {
   };
 
   const { monday, tuesday, wednesday,thursday,friday,saturday,sunday } = day;
-
-
-
-const App = () => {
   return (
     
     <div>
@@ -210,6 +206,6 @@ const App = () => {
 
 
     </div>
-  );
+  )
 }
 export default AddExercise
