@@ -32,6 +32,7 @@ const SignUp = ({ setUser }) => {
       name: name.value,
       password: password.value,
       email: email.value,
+      trainees: [],
     };
     db.collection("users")
       .add(obj)
