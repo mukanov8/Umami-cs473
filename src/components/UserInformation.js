@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { db } from "../firebase";
+
 const UserInformation = ({ user, setUser }) => {
   const exercises = { squats: false, deadlifts: false, pullups: false };
-  const [currInfo, setInfo] = useState({ birthdate: "", exercises: exercises });
+  const [currInfo, setInfo] = useState({ ...user });
   if (user == null) {
     return <h1> Not logged in</h1>;
   }
@@ -15,7 +17,24 @@ const UserInformation = ({ user, setUser }) => {
   const password = user.password;
 
   function onUpdate() {
-    console.log(currInfo);
+    var userRef = db.collection("users").doc(user.id);
+    console.log(userRef);
+    userRef
+      .update({
+        gender: currInfo.gender,
+        birthdate: currInfo.birthdate,
+        levelOfExpertise: currInfo.levelOfExpertise,
+        exerciseGoal: currInfo.exerciseGoal,
+        preferredExercises: currInfo.preferredExercises,
+      })
+      .then(function () {
+        console.log("Document successfully updated!");
+        setUser(currInfo);
+      })
+      .catch(function (error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
   }
 
   function handleRadioChange(e) {
@@ -28,9 +47,17 @@ const UserInformation = ({ user, setUser }) => {
 
   function setPreferredExercise(exercise, value) {
     let newCurrInfo = { ...currInfo };
-    newCurrInfo.exercises[exercise] = value;
+    newCurrInfo.preferredExercises[exercise] = value;
     setInfo(newCurrInfo);
-    console.log(currInfo.exercises);
+    console.log(currInfo.preferredExercises);
+  }
+
+  function getDefaultRadioValue(fieldName, value) {
+    return currInfo[fieldName] == value;
+  }
+
+  function getDefaultCheckBoxValue(fieldName, valueName) {
+    return currInfo[fieldName][valueName];
   }
 
   return (
@@ -44,7 +71,7 @@ const UserInformation = ({ user, setUser }) => {
         <input
           type="text"
           name="birthdate"
-          placeholder="01/01/01"
+          placeholder={currInfo.birthdate}
           onChange={handleRadioChange}
         />
       </div>
@@ -56,12 +83,14 @@ const UserInformation = ({ user, setUser }) => {
             value="MALE"
             name="gender"
             onChange={handleRadioChange}
+            checked={getDefaultRadioValue("gender", "MALE")}
           />{" "}
           Male
           <input
             type="radio"
             value="FEMALE"
             name="gender"
+            checked={getDefaultRadioValue("gender", "FEMALE")}
             onChange={handleRadioChange}
           />{" "}
           Female
@@ -69,31 +98,33 @@ const UserInformation = ({ user, setUser }) => {
       </div>
       <div>
         Level of Expertise:
-        {levelOfExpertise.map((exercise, i) => (
-          <div key={i}>
+        {levelOfExpertise.map((exp) => (
+          <div>
             {" "}
             <input
               type="radio"
-              value={exercise}
-              name="expertise"
+              value={exp}
+              name="levelOfExpertise"
+              checked={getDefaultRadioValue("levelOfExpertise", exp)}
               onChange={handleRadioChange}
             />{" "}
-            {exercise}
+            {exp}
           </div>
         ))}
       </div>
       <div>
         Exercise Goal:
-        {ExerciseGoal.map((exercise, i) => (
-          <div key={i}>
+        {ExerciseGoal.map((goal) => (
+          <div>
             {" "}
             <input
               type="radio"
-              value={exercise}
-              name="exercise-goal"
+              value={goal}
+              name="exerciseGoal"
+              checked={getDefaultRadioValue("exerciseGoal", goal)}
               onChange={handleRadioChange}
             />{" "}
-            {exercise}
+            {goal}
           </div>
         ))}
       </div>
@@ -104,13 +135,14 @@ const UserInformation = ({ user, setUser }) => {
             {" "}
             <input
               type="checkbox"
+              checked={getDefaultCheckBoxValue("preferredExercises", exercise)}
               onChange={(e) => setPreferredExercise(exercise, e.target.checked)}
             />{" "}
             {exercise}
           </div>
         ))}
       </div>
-      <button onClick={onUpdate()}>Update</button>
+      <button onClick={onUpdate}>Update</button>
     </div>
   );
 };
