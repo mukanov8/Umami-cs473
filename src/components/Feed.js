@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
+// import Paper from 'material-ui/core/Paper'
 
-const App = () => {
+import Card from '@material-ui/core/Card';
+
+const Feed = () => {
   const [posts, setPosts] = useState();
 
   useEffect(() => {
@@ -13,21 +16,24 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div >
+
+    {/* <div> */}
       <h1>Feed</h1>
       {posts ? (
         posts.map((p, i) => (
-          <div key={i}>
+          <Card key={i}>
             <img src={p.video} alt="video" />
             <p>{p.caption}</p>
             <p>Exercise: {p.exercise}</p>
-          </div>
+          </Card>
         ))
       ) : (
         <></>
       )}
+    {/* </div> */}
     </div>
   );
 };
 
-export default App;
+export default Feed;
