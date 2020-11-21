@@ -68,7 +68,7 @@ const AddExercise= ({user}) => {
       history.push("/addexercise");
       return;
     }
-    if (starthour.value==finhour.value||starthour.min==finhour.min) {
+    if (starthour.value==finhour.value&&starthour.min==finhour.min) {
       alert("You should not exercise over 24 hours.");
       history.push("/addexercise");
       return;
