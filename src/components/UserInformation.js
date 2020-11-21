@@ -34,8 +34,8 @@ const UserInformation = ({ user, setUser }) => {
       </div>
       <div>
         Level of Expertise:
-        {levelOfExpertise.map((exercise) => (
-          <div>
+        {levelOfExpertise.map((exercise, i) => (
+          <div key={i}>
             {" "}
             <input type="radio" value={exercise} name="expertise" /> {exercise}
           </div>
@@ -43,8 +43,8 @@ const UserInformation = ({ user, setUser }) => {
       </div>
       <div>
         Exercise Goal:
-        {ExerciseGoal.map((exercise) => (
-          <div>
+        {ExerciseGoal.map((exercise, i) => (
+          <div key={i}>
             {" "}
             <input type="radio" value={exercise} name="exercise-goal" />{" "}
             {exercise}
@@ -53,8 +53,8 @@ const UserInformation = ({ user, setUser }) => {
       </div>
       <div>
         <div>Preferred Exercise Types:</div>
-        {exercises.map((exercise) => (
-          <div>
+        {exercises.map((exercise, i) => (
+          <div key={i}>
             {" "}
             <input type="checkbox" /> {exercise}
           </div>
