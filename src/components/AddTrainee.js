@@ -14,7 +14,7 @@ const AddTrainee = ({ user, setUser }) => {
             .map((user) => ({ ...user.data(), id: user.id }))
         );
       });
-  }, [user.id]);
+  }, [user]);
 
   const handleClick = (user2) => {
     // If the user does not have any trainees yet
