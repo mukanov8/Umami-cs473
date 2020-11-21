@@ -21,6 +21,7 @@ import Calendar from "./components/Calendar";
 import AddExercise from "./components/AddExercise";
 import AddTrainee from "./components/AddTrainee";
 import Feed from "./components/Feed";
+import About from "./components/About";
 import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 
@@ -53,8 +54,8 @@ const App = () => {
           <Link style={padding} to="/users">
             users
           </Link>
-          <Link style={padding} to="/info">
-            UserInfo
+          <Link style={padding} to="/userinfo">
+            userinfo
           </Link>
           <Link style={padding} to="/createpost">
             createpost
@@ -69,7 +70,10 @@ const App = () => {
             addexercise
           </Link>
           <Link style={padding} to="/addtrainee">
-            addTrainee
+            addtrainee
+          </Link>
+          <Link style={padding} to="/about">
+            about
           </Link>
           {user ? (
             <em>{user.name} logged in</em>
@@ -94,7 +98,7 @@ const App = () => {
           <Route path="/signup">
             <SignUp setUser={setUser} />
           </Route>
-          <Route path="/info">
+          <Route path="/userinfo">
             {user ? (
               <UserInfo user={user} setUser={setUser} />
             ) : (
@@ -114,15 +118,12 @@ const App = () => {
             {user ? <AddExercise user={user} /> : <Redirect to="/login" />}
           </Route>
           <Route path="/addtrainee">
-            {user ? (
-              <AddTrainee user={user} setUser={setUser} />
-            ) : (
-              <Redirect to="/login" />
-            )}
+            {user ? <AddTrainee user={user} /> : <Redirect to="/login" />}
           </Route>
-          <Route path="/">
-            {user ? <Feed user={user} /> : <Redirect to="/login" />}
+          <Route path="/about">
+            <About />
           </Route>
+          <Route path="/">{user ? <Feed /> : <Redirect to="/login" />}</Route>
         </Switch>
 
         <div>
