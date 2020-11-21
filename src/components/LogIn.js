@@ -36,15 +36,17 @@ const Login = ({ setUser }) => {
       .where("email", "==", email.value)
       .get()
       .then((users) => {
-        users.docs.forEach((user) => {
-          if (user.data().password === password.value) {
-            console.log(user.data().name);
-            setUser({ ...user.data(), id: user.id });
-            history.push("/");
-            return;
-          }
-        });
-        alert("password or email is incorrect");
+        console.log("email", users.docs);
+        const user = users.docs.find(
+          (u) => u.data().password === password.value
+        );
+        console.log("user", user);
+        if (user && user.length !== 0) {
+          setUser({ ...user.data(), id: user.id });
+          history.push("/");
+        } else {
+          alert("the password is incorrect");
+        }
       });
   };
 
@@ -53,16 +55,16 @@ const Login = ({ setUser }) => {
       <Title>Log In</Title>
       <form onSubmit={onSubmit}>
         <div>
-         <TextField  label="Email" {...email} />
+          <TextField label="Email" {...email} />
           {/* Email: <input {...email} /> */}
         </div>
         <div>
-         <TextField  label="Password" {...password}/>
+          <TextField label="Password" {...password} />
           {/* // Password: <input {...password} /> */}
         </div>
         {/* <button type="submit">Log In</button> */}
         <Button variant="contained" color="primary" type="submit">
-            Login
+          Login
         </Button>
       </form>
     </div>

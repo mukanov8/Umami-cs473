@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { db } from "../firebase";
 
 const UserInformation = ({ user, setUser }) => {
@@ -53,7 +52,7 @@ const UserInformation = ({ user, setUser }) => {
   }
 
   function getDefaultRadioValue(fieldName, value) {
-    return currInfo[fieldName] == value;
+    return currInfo[fieldName] === value;
   }
 
   function getDefaultCheckBoxValue(fieldName, valueName) {
@@ -98,8 +97,8 @@ const UserInformation = ({ user, setUser }) => {
       </div>
       <div>
         Level of Expertise:
-        {levelOfExpertise.map((exp) => (
-          <div>
+        {levelOfExpertise.map((exp, i) => (
+          <div key={i}>
             {" "}
             <input
               type="radio"
@@ -114,8 +113,8 @@ const UserInformation = ({ user, setUser }) => {
       </div>
       <div>
         Exercise Goal:
-        {ExerciseGoal.map((goal) => (
-          <div>
+        {ExerciseGoal.map((goal, i) => (
+          <div key={i}>
             {" "}
             <input
               type="radio"
@@ -130,8 +129,8 @@ const UserInformation = ({ user, setUser }) => {
       </div>
       <div>
         <div>Preferred Exercise Types:</div>
-        {exercises.map((exercise) => (
-          <div>
+        {exercises.map((exercise, i) => (
+          <div key={i}>
             {" "}
             <input
               type="checkbox"
