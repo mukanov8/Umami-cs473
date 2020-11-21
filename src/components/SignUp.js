@@ -123,7 +123,7 @@ const SignUp = ({ setUser }) => {
     <Typography component="h1" variant="h5">
       {'Sign up'}
     </Typography>
-    <form className={classes.form} onSubmit={addUser}>
+    <form className={classes.form} onSubmit={addUser} noValidate>
       <TextField {...name}
         variant="outlined"
         margin="normal"
