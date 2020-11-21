@@ -12,12 +12,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
-<<<<<<< HEAD
-import LogIn from "./components/LogIn";
-=======
-
-import LogIn from "./components/Login";
->>>>>>> dd99f481735aeb8a4011c186586424bf6857aef6
+import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import UserInfo from "./components/UserInformation";
 import CreatePost from "./components/CreatePost";
@@ -31,15 +26,15 @@ import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 
 const Cont = styled(Container)`
-  ${'' /* max-width: 50%;
+  ${"" /* max-width: 50%;
   width: 50%; */}
-  ${'' /* color: palevioletred; */}
-  ${'' /* font-color: yellow; */}
-  ${'' /* font-size: 5em; */}
-  ${'' /* margin: 1em; */}
-  ${'' /* padding: 0.25em 1em; */}
-  ${'' /* border: 10px solid palevioletred; */}
-  ${'' /* border-radius: 3px; */}
+  ${"" /* color: palevioletred; */}
+  ${"" /* font-color: yellow; */}
+  ${"" /* font-size: 5em; */}
+  ${"" /* margin: 1em; */}
+  ${"" /* padding: 0.25em 1em; */}
+  ${"" /* border: 10px solid palevioletred; */}
+  ${"" /* border-radius: 3px; */}
 `;
 
 const App = () => {
@@ -98,7 +93,7 @@ const App = () => {
             <h2>Users should be here</h2>
           </Route>
           <Route path="/login">
-            <LogIn setUser={setUser} />
+            <Login setUser={setUser} />
           </Route>
           <Route path="/signup">
             <SignUp setUser={setUser} />
@@ -131,19 +126,11 @@ const App = () => {
           <Route path="/">{user ? <Feed /> : <Redirect to="/login" />}</Route>
         </Switch>
 
-<<<<<<< HEAD
-        <div>
-          <i>Umami, Department of Computer Science 2020</i>
-        </div>
-      </Router>
-    </Cont>
-=======
-      {/* <div>
+        {/* <div>
         <i>Umami, Department of Computer Science 2020</i>
       </div> */}
-    </Router>
-  </Cont>
->>>>>>> dd99f481735aeb8a4011c186586424bf6857aef6
+      </Router>
+    </Cont>
   );
 };
 
