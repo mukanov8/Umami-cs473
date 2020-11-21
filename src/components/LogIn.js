@@ -18,7 +18,7 @@ const useField = (type) => {
 const Login = ({ setUser }) => {
   const history = useHistory();
   const email = useField("text");
-  const password = useField("password");
+  const password = useField("text");
 
   const onSubmit = (event) => {
     event.preventDefault();
