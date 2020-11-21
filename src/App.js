@@ -33,7 +33,7 @@ const Cont = styled(Container)`
   ${'' /* font-size: 5em; */}
   ${'' /* margin: 1em; */}
   ${'' /* padding: 0.25em 1em; */}
-  border: 10px solid palevioletred;
+  ${'' /* border: 10px solid palevioletred; */}
   ${'' /* border-radius: 3px; */}
 `;
 
