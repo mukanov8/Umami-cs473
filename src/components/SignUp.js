@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { db } from "../firebase";
 import { useHistory } from "react-router-dom";
-import UserInformation from "./UserInformation";
 
 const useField = (type) => {
   const [value, setValue] = useState("");
@@ -69,7 +68,6 @@ const SignUp = ({ setUser }) => {
         </div>
         <button type="submit">Sign Up</button>
       </form>
-      <h2>Needs to show that the registration was successful</h2>
       <h2> Passowrds should be checked for equality by the UI</h2>
     </div>
   );

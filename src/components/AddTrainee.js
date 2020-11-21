@@ -32,8 +32,6 @@ const AddTrainee = ({ user, setUser }) => {
     db.collection("users").doc(user2.id).update({ trainees: trainees2 });
   };
 
-  console.log(user.trainees);
-
   return (
     <div>
       <h2>Current Trainees</h2>
