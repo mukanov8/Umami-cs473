@@ -83,7 +83,11 @@ const App = () => {
           <SignUp setUser={setUser} />
         </Route>
         <Route path="/info">
-          {user ? <UserInfo /> : <Redirect to="/login" />}
+          {user ? (
+            <UserInfo user={user} setUser={setUser} />
+          ) : (
+            <Redirect to="/login" />
+          )}
         </Route>
         <Route path="/profile">
           {user ? <Profile /> : <Redirect to="/login" />}
@@ -92,13 +96,17 @@ const App = () => {
           {user ? <CreatePost user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/calendar">
-          {user ? <Calendar /> : <Redirect to="/login" />}
+          {user ? <Calendar user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/addexercise">
-          {user ? <AddExercise user={user}/> : <Redirect to="/login" />}
+          {user ? <AddExercise user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/addtrainee">
-          {user ? <AddTrainee user={user} /> : <Redirect to="/login" />}
+          {user ? (
+            <AddTrainee user={user} setUser={setUser} />
+          ) : (
+            <Redirect to="/login" />
+          )}
         </Route>
         <Route path="/">{user ? <Feed /> : <Redirect to="/login" />}</Route>
       </Switch>

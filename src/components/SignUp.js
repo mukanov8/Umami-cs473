@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import { db } from "../firebase";
 import { useHistory } from "react-router-dom";
+import UserInformation from "./UserInformation";
+
+/*
+Sign-up should add these fields to the user:
+  1. gender=""
+  2. levelOfExpertise = "";
+  3. exerciseGoal = "";
+  4. preferredExercises = ["squats":false, "deadlifts":false, "pullups":false];
+  
+  See the const definitions in UserInformation.js for details
+*/
 
 const useField = (type) => {
   const [value, setValue] = useState("");
@@ -32,6 +43,7 @@ const SignUp = ({ setUser }) => {
       name: name.value,
       password: password.value,
       email: email.value,
+      trainees: [],
     };
     db.collection("users")
       .add(obj)

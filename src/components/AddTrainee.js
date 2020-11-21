@@ -1,45 +1,64 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
 
-const AddTrainee = ({ user }) => {
+const AddTrainee = ({ user, setUser }) => {
   const [users, setUsers] = useState();
 
   useEffect(() => {
     db.collection("users")
       .get()
       .then((users) => {
-        setUsers(users.docs.map((user) => ({ ...user.data(), id: user.id })));
+        setUsers(
+          users.docs
+            .filter((u) => u.id !== user.id)
+            .map((user) => ({ ...user.data(), id: user.id }))
+        );
       });
-  }, []);
-  
+  }, [user.id]);
+
   const handleClick = (user2) => {
-    const currentUser = users.find((u) => u.name == user);
-    const trainees = currentUser.trainees.concat(user2.id);
-    db.collection("users").doc(currentUser.id).update({ trainees });
-    db.collection("users")
-      .doc(user2.id)
-      .update({ trainees: user2.trainees.concat(currentUser.id) });
+    // If the user does not have any trainees yet
+    const trainees = user.trainees
+      ? user.trainees.concat(user2.id)
+      : [user2.id];
+    const trainees2 = user2.trainees
+      ? user2.trainees.concat(user.id)
+      : [user.id];
+
+    //Updating user state
+    setUser({ ...user, trainees });
+
+    db.collection("users").doc(user.id).update({ trainees });
+    db.collection("users").doc(user2.id).update({ trainees: trainees2 });
   };
 
   return (
     <div>
-      <h1>Add Trainees</h1>
+      <h2>Current Trainees</h2>
       <ul>
-        {users ? (
-          users.map((user) => (
-            <li key={user.id}>
-              {user.name}
-              <button onClick={() => handleClick(user)}>Add</button>
-            </li>
-          ))
+        {users && user.trainees ? (
+          users
+            .filter((u) => user.trainees.includes(u.id))
+            .map((u) => <li key={u.id}>{u.name}</li>)
         ) : (
           <></>
         )}
       </ul>
-      <h2>
-        Adding trainees have been implemented even though it might not be
-        obvious from the UI{" "}
-      </h2>
+      <h2>Add New Trainees</h2>
+      <ul>
+        {users ? (
+          users
+            .filter((u) => user.trainees && !user.trainees.includes(u.id))
+            .map((u) => (
+              <li key={u.id}>
+                {u.name}
+                <button onClick={() => handleClick(u)}>Add</button>
+              </li>
+            ))
+        ) : (
+          <></>
+        )}
+      </ul>
     </div>
   );
 };
