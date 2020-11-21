@@ -10,8 +10,12 @@ Intructions:
 - Run 'npm install' command if you do not have npm installed or 'npm install npm@latest -g' to update it.
 - Run 'npm start'
 - Install styled components:
-  $npm install --save styled-components
-  
+  $ npm install --save styled-components
+- Material-UI icons:
+  $ npm add @material-ui/icons
+$ npm install react-markdown
+$ npm install github-markdown-css
+
 To confirm your Node/NPM installation, run the following commands on your terminal:
 - 'node -v'
 - 'npm -v'
