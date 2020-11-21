@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { db } from "../firebase";
 
 const UserInformation = ({ user, setUser }) => {
-  const exercises = { squats: false, deadlifts: false, pullups: false };
   const [currInfo, setInfo] = useState({ ...user });
   if (user == null) {
     return <h1> Not logged in</h1>;
@@ -12,6 +11,7 @@ const UserInformation = ({ user, setUser }) => {
 
   const levelOfExpertise = ["Home training", "Sports", "Gym Training"];
   const ExerciseGoal = ["Weight loss", "Weight gain", "Muscle gain"];
+  const exercises = ["squats", "deadlifts", "pullups"];
   const name = user.name;
   const email = user.email;
   const password = user.password;
@@ -130,7 +130,7 @@ const UserInformation = ({ user, setUser }) => {
       </div>
       <div>
         <div>Preferred Exercise Types:</div>
-        {Object.entries(exercises).map(([exercise, v]) => (
+        {exercises.map((exercise) => (
           <div>
             {" "}
             <input
