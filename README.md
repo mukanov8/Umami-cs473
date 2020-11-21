@@ -13,6 +13,8 @@ Intructions:
   $ npm install --save styled-components
 - Material-UI icons:
   $ npm add @material-ui/icons
+- Material-UI lab (experimental features):
+  $ npm install @material-ui/lab
 $ npm install react-markdown
 $ npm install github-markdown-css
 
