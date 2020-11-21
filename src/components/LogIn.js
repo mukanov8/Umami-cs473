@@ -39,14 +39,6 @@ const Login = ({ setUser }) => {
         } else {
           alert("the password is incorrect");
         }
-
-        // forEach((user) => {
-        //   if (user.data().password === password.value) {
-        //     console.log(user.data().name);
-        //     setUser({ ...user.data(), id: user.id });
-        //     history.push("/");
-        //   }
-        // });
       });
   };
 
