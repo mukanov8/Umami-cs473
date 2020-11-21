@@ -78,7 +78,7 @@ const App = () => {
           <SignUp setUser={setUser} />
         </Route>
         <Route path="/info">
-          {user ? <UserInfo /> : <Redirect to="/login" />}
+          {user ? <UserInfo user={user} /> : <Redirect to="/login" />}
         </Route>
         <Route path="/profile">
           {user ? <Profile /> : <Redirect to="/login" />}
