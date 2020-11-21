@@ -11,6 +11,8 @@ import {
   useParams,
   Redirect,
 } from "react-router-dom";
+
+
 import LogIn from "./components/LogIn";
 import SignUp from "./components/SignUp";
 import UserInfo from "./components/UserInformation";
@@ -21,6 +23,19 @@ import AddExercise from "./components/AddExercise";
 import AddTrainee from "./components/AddTrainee";
 import Feed from "./components/Feed";
 import Container from '@material-ui/core/Container'
+import styled from 'styled-components';
+
+const Cont = styled(Container)`
+  max-width: 50%;
+  width: 50%;
+  ${'' /* color: palevioletred; */}
+  ${'' /* font-color: yellow; */}
+  ${'' /* font-size: 5em; */}
+  ${'' /* margin: 1em; */}
+  ${'' /* padding: 0.25em 1em; */}
+  border: 10px solid palevioletred;
+  ${'' /* border-radius: 3px; */}
+`;
 
 
 const App = () => {
@@ -32,7 +47,7 @@ const App = () => {
 
 
   return (
-    <Container>
+    <Cont>
     <Router>
       <div>
         <Link style={padding} to="/">
@@ -115,7 +130,7 @@ const App = () => {
         <i>Umami, Department of Computer Science 2020</i>
       </div>
     </Router>
-  </Container>
+  </Cont>
   );
 };
 

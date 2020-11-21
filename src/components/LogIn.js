@@ -3,6 +3,14 @@ import { useHistory } from "react-router-dom";
 import { db } from "../firebase";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
+
+// const 
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: black;
+`;
 
 const useField = (type) => {
   const [value, setValue] = useState("");
@@ -42,7 +50,7 @@ const Login = ({ setUser }) => {
 
   return (
     <div>
-      <h1>Log In</h1>
+      <Title>Log In</Title>
       <form onSubmit={onSubmit}>
         <div>
          <TextField  label="Email" {...email} />
