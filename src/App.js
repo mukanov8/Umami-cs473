@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import noteService from './services/notes'
-import "./index.css";
+// import "./index.css";
+import "./App.css";
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,6 +20,8 @@ import Calendar from "./components/Calendar";
 import AddExercise from "./components/AddExercise";
 import AddTrainee from "./components/AddTrainee";
 import Feed from "./components/Feed";
+import Container from '@material-ui/core/Container'
+
 
 const App = () => {
   const [user, setUser] = useState();
@@ -27,7 +30,9 @@ const App = () => {
     padding: 5,
   };
 
+
   return (
+    <Container>
     <Router>
       <div>
         <Link style={padding} to="/">
@@ -102,6 +107,7 @@ const App = () => {
         <i>Umami, Department of Computer Science 2020</i>
       </div>
     </Router>
+  </Container>
   );
 };
 

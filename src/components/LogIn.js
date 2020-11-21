@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { db } from "../firebase";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const useField = (type) => {
   const [value, setValue] = useState("");
@@ -17,7 +19,7 @@ const useField = (type) => {
 
 const Login = ({ setUser }) => {
   const history = useHistory();
-  const email = useField("text");
+  const email = useField("email");
   const password = useField("password");
 
   const onSubmit = (event) => {
@@ -43,12 +45,17 @@ const Login = ({ setUser }) => {
       <h1>Log In</h1>
       <form onSubmit={onSubmit}>
         <div>
-          Email: <input {...email} />
+         <TextField  label="Email" {...email} />
+          {/* Email: <input {...email} /> */}
         </div>
         <div>
-          Password: <input {...password} />
+         <TextField  label="Password" {...password}/>
+          {/* // Password: <input {...password} /> */}
         </div>
-        <button type="submit">Log In</button>
+        {/* <button type="submit">Log In</button> */}
+        <Button variant="contained" color="primary" type="submit">
+            Login
+        </Button>
       </form>
     </div>
   );

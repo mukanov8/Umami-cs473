@@ -11,7 +11,7 @@ const AddTrainee = ({ user }) => {
         setUsers(users.docs.map((user) => ({ ...user.data(), id: user.id })));
       });
   }, []);
-
+  
   const handleClick = (user2) => {
     const currentUser = users.find((u) => u.name == user);
     const trainees = currentUser.trainees.concat(user2.id);
