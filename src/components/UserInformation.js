@@ -1,20 +1,37 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
 const UserInformation = ({ user, setUser }) => {
+  const exercises = { squats: false, deadlifts: false, pullups: false };
+  const [currInfo, setInfo] = useState({ birthdate: "", exercises: exercises });
   if (user == null) {
     return <h1> Not logged in</h1>;
   }
   // const [formValue, setFormValue] = useState({ name: "", email: "" });
 
-  const exercises = ["squats", "deadlifts", "pull-ups"];
   const levelOfExpertise = ["Home training", "Sports", "Gym Training"];
   const ExerciseGoal = ["Weight loss", "Weight gain", "Muscle gain"];
-  const name = "Mike";
-  const email = "Mike@gmail.com";
-  const password = "******";
+  const name = user.name;
+  const email = user.email;
+  const password = user.password;
 
-  function onUpdate() {}
+  function onUpdate() {
+    console.log(currInfo);
+  }
+
+  function handleRadioChange(e) {
+    const { name, value } = e.target;
+    let newCurrInfo = { ...currInfo };
+    newCurrInfo[name] = value;
+    setInfo(newCurrInfo);
+    console.log(currInfo);
+  }
+
+  function setPreferredExercise(exercise, value) {
+    let newCurrInfo = { ...currInfo };
+    newCurrInfo.exercises[exercise] = value;
+    setInfo(newCurrInfo);
+    console.log(currInfo.exercises);
+  }
 
   return (
     <div>
@@ -23,13 +40,31 @@ const UserInformation = ({ user, setUser }) => {
       <div>Email: {email}</div>
       <div>Password: {password}</div>
       <div>
-        Date of birth: <input />
+        Date of birth:{" "}
+        <input
+          type="text"
+          name="birthdate"
+          placeholder="01/01/01"
+          onChange={handleRadioChange}
+        />
       </div>
       <div>
         Gender:
-        <div onChange={onUpdate()}>
-          <input type="radio" value="MALE" name="gender" /> Male
-          <input type="radio" value="FEMALE" name="gender" /> Female
+        <div>
+          <input
+            type="radio"
+            value="MALE"
+            name="gender"
+            onChange={handleRadioChange}
+          />{" "}
+          Male
+          <input
+            type="radio"
+            value="FEMALE"
+            name="gender"
+            onChange={handleRadioChange}
+          />{" "}
+          Female
         </div>
       </div>
       <div>
@@ -37,7 +72,13 @@ const UserInformation = ({ user, setUser }) => {
         {levelOfExpertise.map((exercise) => (
           <div>
             {" "}
-            <input type="radio" value={exercise} name="expertise" /> {exercise}
+            <input
+              type="radio"
+              value={exercise}
+              name="expertise"
+              onChange={handleRadioChange}
+            />{" "}
+            {exercise}
           </div>
         ))}
       </div>
@@ -46,17 +87,26 @@ const UserInformation = ({ user, setUser }) => {
         {ExerciseGoal.map((exercise) => (
           <div>
             {" "}
-            <input type="radio" value={exercise} name="exercise-goal" />{" "}
+            <input
+              type="radio"
+              value={exercise}
+              name="exercise-goal"
+              onChange={handleRadioChange}
+            />{" "}
             {exercise}
           </div>
         ))}
       </div>
       <div>
         <div>Preferred Exercise Types:</div>
-        {exercises.map((exercise) => (
+        {Object.entries(exercises).map(([exercise, v]) => (
           <div>
             {" "}
-            <input type="checkbox" /> {exercise}
+            <input
+              type="checkbox"
+              onChange={(e) => setPreferredExercise(exercise, e.target.checked)}
+            />{" "}
+            {exercise}
           </div>
         ))}
       </div>
