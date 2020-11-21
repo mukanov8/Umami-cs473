@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 
-import LogIn from "./components/LogIn";
+import LogIn from "./components/Login";
 import SignUp from "./components/SignUp";
 import UserInfo from "./components/UserInformation";
 import CreatePost from "./components/CreatePost";
@@ -27,8 +27,8 @@ import Container from '@material-ui/core/Container'
 import styled from 'styled-components';
 
 const Cont = styled(Container)`
-  max-width: 50%;
-  width: 50%;
+  ${'' /* max-width: 50%;
+  width: 50%; */}
   ${'' /* color: palevioletred; */}
   ${'' /* font-color: yellow; */}
   ${'' /* font-size: 5em; */}
@@ -133,9 +133,9 @@ const App = () => {
         <Route path="/">{user ? <Feed /> : <Redirect to="/login" />}</Route>
       </Switch>
 
-      <div>
+      {/* <div>
         <i>Umami, Department of Computer Science 2020</i>
-      </div>
+      </div> */}
     </Router>
   </Cont>
   );
