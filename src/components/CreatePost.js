@@ -62,6 +62,7 @@ const CreatePost = ({ user }) => {
               public: publicBool.value,
               exercise: exercise.value,
               userId: user.id,
+              userName: user.name,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             });
             history.push("/");
