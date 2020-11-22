@@ -101,7 +101,7 @@ const App = () => {
                 <>
                   <em>{user.name} logged-in</em>
                   <button onClick={() => setUser()}>Log out</button>
-                  <Notification />
+                  <Notification user={user} />
                 </>
               ) : (
                 <>
