@@ -24,7 +24,7 @@ import Notification from "./components/Notification";
 import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import Appbar from "./components/Appbar";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 const Cont = styled(Container)`
   ${"" /* max-width: 50%;
@@ -49,113 +49,114 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-
 const App = () => {
   const [user, setUser] = useState();
   const classes = useStyles();
-  // const padding = {
-  //   padding: 5,
-  // };
+  const padding = {
+    padding: 5,
+  };
 
   return (
-    <div style={ {display: 'flex'} }>
-    <div className={classes.root}>
-    <Appbar/>
-    <Cont>
-      <Router>
-        {/* <div>
-          <Link style={padding} to="/">
-            Feed
-          </Link>
-          <Link style={padding} to="/users">
-            users
-          </Link>
-          <Link style={padding} to="/userinfo">
-            userinfo
-          </Link>
-          <Link style={padding} to="/createpost">
-            createpost
-          </Link>
-          <Link style={padding} to="/profile">
-            profile
-          </Link>
-          <Link style={padding} to="/calendar">
-            calendar
-          </Link>
-          <Link style={padding} to="/addexercise">
-            addexercise
-          </Link>
-          <Link style={padding} to="/addtrainee">
-            addtrainee
-          </Link>
-          <Link style={padding} to="/about">
-            about
-          </Link>
-          {user ? (
-            <>
-              <em>{user.name} logged-in</em>
-              <button onClick={() => setUser()}>Log out</button>
-              <Notification />
-            </>
-          ) : (
-            <>
-              <Link style={padding} to="/login">
-                login
+    <div style={{ display: "flex" }}>
+      <div className={classes.root}>
+        <Appbar />
+        <Cont>
+          <Router>
+            <div>
+              <Link style={padding} to="/">
+                Feed
               </Link>
-              <Link style={padding} to="/signup">
-                signup
+              <Link style={padding} to="/users">
+                users
               </Link>
-            </>
-          )}
-        </div> */}
-        <Switch>
-          <Route path="/users">
-            <h2>Users should be here</h2>
-          </Route>
-          <Route path="/login">
-            <Login setUser={setUser} />
-          </Route>
-          <Route path="/signup">
-            <SignUp setUser={setUser} />
-          </Route>
-          <Route path="/userinfo">
-            {user ? (
-              <UserInfo user={user} setUser={setUser} />
-            ) : (
-              <Redirect to="/login" />
-            )}
-          </Route>
-          <Route path="/profile">
-            {user ? <Profile /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/createpost">
-            {user ? <CreatePost user={user} /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/calendar">
-            {user ? <Calendar user={user} /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/addexercise">
-            {user ? <AddExercise user={user} /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/addtrainee">
-            {user ? (
-              <AddTrainee user={user} setUser={setUser} />
-            ) : (
-              <Redirect to="/login" />
-            )}
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/">{user ? <Feed /> : <Redirect to="/login" />}</Route>
-        </Switch>
+              <Link style={padding} to="/userinfo">
+                userinfo
+              </Link>
+              <Link style={padding} to="/createpost">
+                createpost
+              </Link>
+              <Link style={padding} to="/profile">
+                profile
+              </Link>
+              <Link style={padding} to="/calendar">
+                calendar
+              </Link>
+              <Link style={padding} to="/addexercise">
+                addexercise
+              </Link>
+              <Link style={padding} to="/addtrainee">
+                addtrainee
+              </Link>
+              <Link style={padding} to="/about">
+                about
+              </Link>
+              {user ? (
+                <>
+                  <em>{user.name} logged-in</em>
+                  <button onClick={() => setUser()}>Log out</button>
+                  <Notification user={user} />
+                </>
+              ) : (
+                <>
+                  <Link style={padding} to="/login">
+                    login
+                  </Link>
+                  <Link style={padding} to="/signup">
+                    signup
+                  </Link>
+                </>
+              )}
+            </div>
+            <Switch>
+              <Route path="/users">
+                <h2>Users should be here</h2>
+              </Route>
+              <Route path="/login">
+                <Login setUser={setUser} />
+              </Route>
+              <Route path="/signup">
+                <SignUp setUser={setUser} />
+              </Route>
+              <Route path="/userinfo">
+                {user ? (
+                  <UserInfo user={user} setUser={setUser} />
+                ) : (
+                  <Redirect to="/login" />
+                )}
+              </Route>
+              <Route path="/profile">
+                {user ? <Profile /> : <Redirect to="/login" />}
+              </Route>
+              <Route path="/createpost">
+                {user ? <CreatePost user={user} /> : <Redirect to="/login" />}
+              </Route>
+              <Route path="/calendar">
+                {user ? <Calendar user={user} /> : <Redirect to="/login" />}
+              </Route>
+              <Route path="/addexercise">
+                {user ? <AddExercise user={user} /> : <Redirect to="/login" />}
+              </Route>
+              <Route path="/addtrainee">
+                {user ? (
+                  <AddTrainee user={user} setUser={setUser} />
+                ) : (
+                  <Redirect to="/login" />
+                )}
+              </Route>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/">
+                {user ? <Feed /> : <Redirect to="/login" />}
+              </Route>
+            </Switch>
 
-        {/* <div>
+            {/* <div>
         <i>Umami, Department of Computer Science 2020</i>
       </div> */}
-      </Router>
-    </Cont>
-    </div>
+          </Router>
+        </Cont>
+      </div>
     </div>
   );
 };
