@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import noteService from './services/notes'
 // import "./index.css";
 import "./App.css";
@@ -9,7 +9,6 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import UserInfo from "./components/UserInformation";

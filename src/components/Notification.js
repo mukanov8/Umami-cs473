@@ -1,64 +1,123 @@
 import React, { useState, useEffect } from "react";
 import NotifyMe from "react-notification-timeline";
+import SnackBar from "./SnackBar";
 import { db } from "../firebase";
+import firebase from "firebase";
+
+const numToDay = (num) => {
+  if (num === 0) {
+    return "sunday";
+  } else if (num === 1) {
+    return "monday";
+  } else if (num === 2) {
+    return "tuesday";
+  } else if (num === 3) {
+    return "wednesday";
+  } else if (num === 4) {
+    return "thursday";
+  } else if (num === 5) {
+    return "friday";
+  } else if (num === 6) {
+    return "saturday";
+  }
+};
 
 const Notification = ({ user }) => {
   const [data, setData] = useState([]);
+  const [open, setOpen] = useState(false);
 
-  // fetch 3 latest messages from db
   useEffect(() => {
-    // something;
+    // Notifications about scheduled exercises
+    db.collection("exercises")
+      .where("userid", "==", user.id)
+      .get()
+      .then((exercises) => {
+        const d = new Date();
+        const day = numToDay(d.getDay());
+        const soon = exercises.docs.find((e) => e.data().day === day);
+        if (!soon) {
+          return;
+        }
+
+        const early =
+          d.getHours() * 60 +
+          d.getMinutes() -
+          parseInt(soon.data().starthour) * 60 -
+          parseInt(soon.data().startmin);
+
+        if (early > 15) {
+          return;
+        }
+
+        const latetime =
+          d.getHours() * 60 +
+          d.getMinutes() -
+          parseInt(soon.data().finhour) * 60 -
+          parseInt(soon.data().finmin);
+
+        const message =
+          latetime >= 30
+            ? "it has been over 30 minutes since you were supposed to confirm your exercise"
+            : early >= 0
+            ? "you have a scheduled exercise soon"
+            : "it is time to exercise";
+        db.collection("messages").add({
+          message: message,
+          senderName: "System",
+          receiverId: user.id,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+
+        if (latetime >= 30) {
+          //notification both to the user and co-trainees
+          console.log(
+            "it has been over 30 minutes since you were supposed to confirm your exercise",
+            soon.data()
+          );
+        } else if (early <= 15) {
+          //Notification only to the user
+          console.log("you have a scheduled exercise soon", soon.data());
+        }
+      });
+
+    // fetch 5 latest messages from db
     db.collection("messages")
       .where("receiverId", "==", user.id)
       .onSnapshot(function (changes) {
-        // changes.docChanges().forEach((change) => {
-        //   // console.log("snap", change.doc.data());
-        //   if (change.type === "added") {
-        //     const obj = {
-        //       update: change.doc.data().message,
-        //       timestamp: change.doc.data().timestamp.toDate(),
-        //     };
-        //     const b = data.find((m) => m.timestamp - obj.timestamp === 0);
-        //     if (!b) {
-        //       setData(data.concat(obj));
-        //     }
-        //   }
-        // });
         db.collection("messages")
           .where("receiverId", "==", user.id)
+          .orderBy("timestamp", "desc")
+          .limit(5)
           .get()
           .then((messages) => {
-            // const fr = messages.docs.map((m) => m.data());
-            // console.log("messages", fr);
-            const ordered = [...messages.docs].sort(
-              (a, b) => b.data().timestamp - a.data().timestamp
-            );
-            // const o = ordered.map((a) => a.data().timestamp.toDate());
-            // console.log("dates", o);
             setData(
-              ordered.slice(0, 3).map((message) => ({
-                update: message.data().message,
-                timestamp: message.data().timestamp.toDate(),
+              messages.docs.map((message) => ({
+                update:
+                  message.data().senderName + ": " + message.data().message,
+                timestamp:
+                  message.data().timestamp && message.data().timestamp.toDate(),
               }))
             );
-
-            console.log(data);
+            setOpen(true);
           });
       });
-  }, []);
+  }, [user.id]);
 
   return (
-    <NotifyMe
-      data={data}
-      storageKey="notific_key"
-      notific_key="timestamp"
-      notific_value="update"
-      heading="Notification Alerts"
-      sortedByKey={false}
-      showDate={true}
-      size={32}
-      color="green"
-    />
+    <div>
+      <SnackBar severity="info" open={open} setOpen={setOpen} />
+      <NotifyMe
+        data={data}
+        storageKey="notific_key"
+        notific_key="timestamp"
+        notific_value="update"
+        heading="Notification Alerts"
+        sortedByKey={false}
+        showDate={true}
+        size={32}
+        color="green"
+      />
+    </div>
   );
 };
 

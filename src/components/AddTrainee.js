@@ -59,7 +59,7 @@ const TraineeCard = ({ user, setUser, u, button }) => {
               Connect
             </Button>
           ) : (
-            <NotificationModal sender={user} receiver={u} />
+            <NotificationModal senderName={user.name} receiverid={u.id} />
           )
         }
         title={u.name}

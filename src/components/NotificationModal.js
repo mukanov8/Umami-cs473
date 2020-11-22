@@ -3,6 +3,7 @@ import { db } from "../firebase";
 import firebase from "firebase";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Icon, Input, Fade, Backdrop, Modal } from "@material-ui/core";
+import SnackBar from "./SnackBar";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -18,10 +19,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NotificationModal({ sender, receiver }) {
+export default function NotificationModal({ senderName, receiverid }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [snack, setSnack] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -35,13 +37,14 @@ export default function NotificationModal({ sender, receiver }) {
     db.collection("messages")
       .add({
         message: message,
-        senderId: sender.id,
-        receiverId: receiver.id,
+        senderName: senderName || "System",
+        receiverId: receiverid,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then((res) => {
         setOpen(false);
         setMessage("");
+        setSnack(true);
       })
       .catch((error) => {
         console.log(error.message);
@@ -50,6 +53,7 @@ export default function NotificationModal({ sender, receiver }) {
 
   return (
     <div>
+      <SnackBar severity="success" open={snack} setOpen={setSnack} />
       <Button
         variant="contained"
         color="primary"
