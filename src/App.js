@@ -25,6 +25,7 @@ import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import Appbar from "./components/Appbar";
 import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 
 const Cont = styled(Container)`
   ${"" /* max-width: 50%;
@@ -57,12 +58,18 @@ const App = () => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <div className={classes.root}>
+    <Box style={{ display: "flex" }}>
+      <Box className={classes.root}>
         <Appbar />
         <Cont>
           <Router>
-            <div>
+            <Box
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+              }}
+            >
               <Link style={padding} to="/">
                 Feed
               </Link>
@@ -94,19 +101,19 @@ const App = () => {
                 <>
                   <em>{user.name} logged-in</em>
                   <button onClick={() => setUser()}>Log out</button>
-                  <Notification user={user} />
+                  <Notification />
                 </>
               ) : (
                 <>
                   <Link style={padding} to="/login">
                     login
                   </Link>
-                  <Link style={padding} to="/signup">
-                    signup
+                  <Link style={padding} to="/calendar">
+                    calendar
                   </Link>
                 </>
               )}
-            </div>
+            </Box>
             <Switch>
               <Route path="/users">
                 <h2>Users should be here</h2>
@@ -156,8 +163,8 @@ const App = () => {
       </div> */}
           </Router>
         </Cont>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
