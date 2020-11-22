@@ -76,7 +76,10 @@ const App = () => {
             about
           </Link>
           {user ? (
-            <em>{user.name} logged in</em>
+            <>
+              <em>{user.name} logged-in</em>
+              <button onClick={() => setUser()}>Log out</button>
+            </>
           ) : (
             <>
               <Link style={padding} to="/login">
