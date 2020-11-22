@@ -25,6 +25,7 @@ import About from "./components/About";
 import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import Appbar from "./components/Appbar";
+import { makeStyles } from '@material-ui/core/styles';
 
 const Cont = styled(Container)`
   ${"" /* max-width: 50%;
@@ -37,20 +38,33 @@ const Cont = styled(Container)`
   ${"" /* border: 10px solid palevioletred; */}
   ${"" /* border-radius: 3px; */}
 `;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  // menuButton: {
+  //   marginRight: theme.spacing(2),
+  // },
+  // title: {
+  //   flexGrow: 1,
+  // },
+}));
 
 
 const App = () => {
   const [user, setUser] = useState();
-
-  const padding = {
-    padding: 5,
-  };
+  const classes = useStyles();
+  // const padding = {
+  //   padding: 5,
+  // };
 
   return (
-    <Appbar/>,
+    <div style={ {display: 'flex'} }>
+    <div className={classes.root}>
+    <Appbar/>
     <Cont>
       <Router>
-        <div>
+        {/* <div>
           <Link style={padding} to="/">
             Feed
           </Link>
@@ -93,7 +107,7 @@ const App = () => {
               </Link>
             </>
           )}
-        </div>
+        </div> */}
         <Switch>
           <Route path="/users">
             <h2>Users should be here</h2>
@@ -137,6 +151,8 @@ const App = () => {
       </div> */}
       </Router>
     </Cont>
+    </div>
+    </div>
   );
 };
 

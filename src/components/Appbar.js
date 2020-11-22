@@ -23,7 +23,7 @@ export default function Appbar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    // <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -35,6 +35,6 @@ export default function Appbar() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
-    </div>
+    // </div>
   );
 }
