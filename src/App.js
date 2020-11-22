@@ -24,6 +24,7 @@ import Feed from "./components/Feed";
 import About from "./components/About";
 import Container from "@material-ui/core/Container";
 import styled from "styled-components";
+import Appbar from "./components/Appbar";
 
 const Cont = styled(Container)`
   ${"" /* max-width: 50%;
@@ -37,6 +38,7 @@ const Cont = styled(Container)`
   ${"" /* border-radius: 3px; */}
 `;
 
+
 const App = () => {
   const [user, setUser] = useState();
 
@@ -45,6 +47,7 @@ const App = () => {
   };
 
   return (
+    <Appbar/>,
     <Cont>
       <Router>
         <div>
