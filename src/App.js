@@ -7,8 +7,6 @@ import {
   Switch,
   Route,
   Link,
-  useHistory,
-  useParams,
   Redirect,
 } from "react-router-dom";
 
@@ -22,6 +20,7 @@ import AddExercise from "./components/AddExercise";
 import AddTrainee from "./components/AddTrainee";
 import Feed from "./components/Feed";
 import About from "./components/About";
+import Notification from "./components/Notification";
 import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 
@@ -79,6 +78,7 @@ const App = () => {
             <>
               <em>{user.name} logged-in</em>
               <button onClick={() => setUser()}>Log out</button>
+              <Notification />
             </>
           ) : (
             <>
@@ -121,7 +121,11 @@ const App = () => {
             {user ? <AddExercise user={user} /> : <Redirect to="/login" />}
           </Route>
           <Route path="/addtrainee">
-            {user ? <AddTrainee user={user} /> : <Redirect to="/login" />}
+            {user ? (
+              <AddTrainee user={user} setUser={setUser} />
+            ) : (
+              <Redirect to="/login" />
+            )}
           </Route>
           <Route path="/about">
             <About />
