@@ -73,15 +73,84 @@ const AddExercise= ({user}) => {
       history.push("/addexercise");
       return;
     }
-    db.collection("exercises").add({
-      userid:user.id,
-      day: day,
-      exercise: exercise.value,
-      starthour: starthour.value,
-      startmin: startmin.value,
-      finhour: finhour.value,
-      finmin: finmin.value
-    })
+    if (day.sunday==true) {
+      db.collection("exercises").add({
+        userid:user.id,
+        day: 0,
+        exercise: exercise.value,
+        starthour: starthour.value,
+        startmin: startmin.value,
+        finhour: finhour.value,
+        finmin: finmin.value
+      })
+    }
+    if (day.monday==true) {
+      db.collection("exercises").add({
+        userid:user.id,
+        day: 1,
+        exercise: exercise.value,
+        starthour: starthour.value,
+        startmin: startmin.value,
+        finhour: finhour.value,
+        finmin: finmin.value
+      })
+    }
+    if (day.tuesday==true) {
+      db.collection("exercises").add({
+        userid:user.id,
+        day: 2,
+        exercise: exercise.value,
+        starthour: starthour.value,
+        startmin: startmin.value,
+        finhour: finhour.value,
+        finmin: finmin.value
+      })
+    }
+    if (day.wednesday==true) {
+      db.collection("exercises").add({
+        userid:user.id,
+        day: 3,
+        exercise: exercise.value,
+        starthour: starthour.value,
+        startmin: startmin.value,
+        finhour: finhour.value,
+        finmin: finmin.value
+      })
+    }
+    if (day.thursday==true) {
+      db.collection("exercises").add({
+        userid:user.id,
+        day: 4,
+        exercise: exercise.value,
+        starthour: starthour.value,
+        startmin: startmin.value,
+        finhour: finhour.value,
+        finmin: finmin.value
+      })
+    }
+    if (day.friday==true) {
+      db.collection("exercises").add({
+        userid:user.id,
+        day: 5,
+        exercise: exercise.value,
+        starthour: starthour.value,
+        startmin: startmin.value,
+        finhour: finhour.value,
+        finmin: finmin.value
+      })
+    }
+    if (day.saturday==true) {
+      db.collection("exercises").add({
+        userid:user.id,
+        day: 6,
+        exercise: exercise.value,
+        starthour: starthour.value,
+        startmin: startmin.value,
+        finhour: finhour.value,
+        finmin: finmin.value
+      })
+    }
+    
 
     history.push("/");
 
