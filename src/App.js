@@ -9,7 +9,7 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./components/LogIn";
 import SignUp from "./components/SignUp";
 import UserInfo from "./components/UserInformation";
 import CreatePost from "./components/CreatePost";
