@@ -71,9 +71,6 @@ const App = () => {
             <Link style={padding} to="/">
               Feed
             </Link>
-            <Link style={padding} to="/users">
-              users
-            </Link>
             <Link style={padding} to="/userinfo">
               userinfo
             </Link>

@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 500,
     maxHeight: 800,
     marginBottom: 10,
+    margin: "auto",
   },
   media: {
     height: 0,
@@ -234,7 +235,7 @@ const CreatePost = ({ user }) => {
             </Grid>
           </Typography>
           <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Age</InputLabel>
+            <InputLabel id="demo-simple-select-label">Exercise</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -248,6 +249,7 @@ const CreatePost = ({ user }) => {
                 ))}
             </Select>
           </FormControl>
+          <progress value={progress} max="100" />
         </CardContent>
         <CardActions>
           <Button className={classes.post} onClick={handleSubmit}>
@@ -255,7 +257,6 @@ const CreatePost = ({ user }) => {
           </Button>
         </CardActions>
       </Card>
-      <progress value={progress} max="100" />
     </div>
   );
 };
