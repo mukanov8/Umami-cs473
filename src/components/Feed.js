@@ -16,7 +16,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 500,
     maxHeight: 800,
+    minWidth: 275,
     marginBottom: 10,
+    margin: "auto",
+    flexGrow: 1,
+    // display: "flex",
   },
   media: {
     height: 0,
@@ -48,13 +52,13 @@ const Feed = ({ user }) => {
   const classes = useStyles();
 
   return (
-    <Box
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        display: "flex",
-      }}
+    <Container
+    // style={{
+    //   alignItems: "center",
+    //   justifyContent: "center",
+    //   flexDirection: "column",
+    //   display: "flex",
+    // }}
     >
       <h1 className={classes.feed}>Feed</h1>
       {posts ? (
@@ -103,7 +107,7 @@ const Feed = ({ user }) => {
         <></>
       )}
       {/* </div> */}
-    </Box>
+    </Container>
   );
 };
 

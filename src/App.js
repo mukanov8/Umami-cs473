@@ -57,112 +57,108 @@ const App = () => {
   };
 
   return (
-    <Box style={{ display: "flex" }}>
-      <Box className={classes.root}>
-        <Appbar />
-        <Cont>
-          <Router>
-            <Box
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-                display: "flex",
-              }}
-            >
-              <Link style={padding} to="/">
-                Feed
-              </Link>
-              <Link style={padding} to="/users">
-                users
-              </Link>
-              <Link style={padding} to="/userinfo">
-                userinfo
-              </Link>
-              <Link style={padding} to="/createpost">
-                createpost
-              </Link>
-              <Link style={padding} to="/profile">
-                profile
-              </Link>
-              <Link style={padding} to="/calendar">
-                calendar
-              </Link>
-              <Link style={padding} to="/addexercise">
-                addexercise
-              </Link>
-              <Link style={padding} to="/addtrainee">
-                addtrainee
-              </Link>
-              <Link style={padding} to="/about">
-                about
-              </Link>
+    <Box className={classes.root}>
+      <Appbar />
+      <Cont>
+        <Router>
+          <Box
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+          >
+            <Link style={padding} to="/">
+              Feed
+            </Link>
+            <Link style={padding} to="/users">
+              users
+            </Link>
+            <Link style={padding} to="/userinfo">
+              userinfo
+            </Link>
+            <Link style={padding} to="/createpost">
+              createpost
+            </Link>
+            <Link style={padding} to="/profile">
+              profile
+            </Link>
+            <Link style={padding} to="/calendar">
+              calendar
+            </Link>
+            <Link style={padding} to="/addexercise">
+              addexercise
+            </Link>
+            <Link style={padding} to="/addtrainee">
+              addtrainee
+            </Link>
+            <Link style={padding} to="/about">
+              about
+            </Link>
+            {user ? (
+              <>
+                <em>{user.name} logged-in</em>
+                <button onClick={() => setUser()}>Log out</button>
+                <Notification user={user} />
+              </>
+            ) : (
+              <>
+                <Link style={padding} to="/login">
+                  login
+                </Link>
+                <Link style={padding} to="/calendar">
+                  calendar
+                </Link>
+              </>
+            )}
+          </Box>
+          <Switch>
+            <Route path="/users">
+              <h2>Users should be here</h2>
+            </Route>
+            <Route path="/login">
+              <Login setUser={setUser} />
+            </Route>
+            <Route path="/signup">
+              <SignUp setUser={setUser} />
+            </Route>
+            <Route path="/userinfo">
               {user ? (
-                <>
-                  <em>{user.name} logged-in</em>
-                  <button onClick={() => setUser()}>Log out</button>
-                  <Notification user={user} />
-                </>
+                <UserInfo user={user} setUser={setUser} />
               ) : (
-                <>
-                  <Link style={padding} to="/login">
-                    login
-                  </Link>
-                  <Link style={padding} to="/calendar">
-                    calendar
-                  </Link>
-                </>
+                <Redirect to="/login" />
               )}
-            </Box>
-            <Switch>
-              <Route path="/users">
-                <h2>Users should be here</h2>
-              </Route>
-              <Route path="/login">
-                <Login setUser={setUser} />
-              </Route>
-              <Route path="/signup">
-                <SignUp setUser={setUser} />
-              </Route>
-              <Route path="/userinfo">
-                {user ? (
-                  <UserInfo user={user} setUser={setUser} />
-                ) : (
-                  <Redirect to="/login" />
-                )}
-              </Route>
-              <Route path="/profile">
-                {user ? <Profile /> : <Redirect to="/login" />}
-              </Route>
-              <Route path="/createpost">
-                {user ? <CreatePost user={user} /> : <Redirect to="/login" />}
-              </Route>
-              <Route path="/calendar">
-                {user ? <Calendar user={user} /> : <Redirect to="/login" />}
-              </Route>
-              <Route path="/addexercise">
-                {user ? <AddExercise user={user} /> : <Redirect to="/login" />}
-              </Route>
-              <Route path="/addtrainee">
-                {user ? (
-                  <AddTrainee user={user} setUser={setUser} />
-                ) : (
-                  <Redirect to="/login" />
-                )}
-              </Route>
-              <Route path="/about">
-                <About />
-              </Route>
-              <Route path="/">
-                {user ? <Feed /> : <Redirect to="/login" />}
-              </Route>
-            </Switch>
+            </Route>
+            <Route path="/profile">
+              {user ? <Profile /> : <Redirect to="/login" />}
+            </Route>
+            <Route path="/createpost">
+              {user ? <CreatePost user={user} /> : <Redirect to="/login" />}
+            </Route>
+            <Route path="/calendar">
+              {user ? <Calendar user={user} /> : <Redirect to="/login" />}
+            </Route>
+            <Route path="/addexercise">
+              {user ? <AddExercise user={user} /> : <Redirect to="/login" />}
+            </Route>
+            <Route path="/addtrainee">
+              {user ? (
+                <AddTrainee user={user} setUser={setUser} />
+              ) : (
+                <Redirect to="/login" />
+              )}
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/">{user ? <Feed /> : <Redirect to="/login" />}</Route>
+          </Switch>
 
-            {/* <div>
+          {/* <div>
         <i>Umami, Department of Computer Science 2020</i>
       </div> */}
-          </Router>
-        </Cont>
-      </Box>
+        </Router>
+      </Cont>
     </Box>
   );
 };
