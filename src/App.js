@@ -72,25 +72,25 @@ const App = () => {
               Feed
             </Link>
             <Link style={padding} to="/userinfo">
-              userinfo
+              User Information
             </Link>
             <Link style={padding} to="/createpost">
-              createpost
+              Compose
             </Link>
             <Link style={padding} to="/profile">
-              profile
+              Profile
             </Link>
             <Link style={padding} to="/calendar">
-              calendar
+              Calendar
             </Link>
             <Link style={padding} to="/addexercise">
-              addexercise
+              Schedule an Exercise
             </Link>
             <Link style={padding} to="/addtrainee">
-              addtrainee
+              Co-Trainees
             </Link>
             <Link style={padding} to="/about">
-              about
+              About
             </Link>
             {user ? (
               <>
@@ -102,9 +102,6 @@ const App = () => {
               <>
                 <Link style={padding} to="/login">
                   login
-                </Link>
-                <Link style={padding} to="/calendar">
-                  calendar
                 </Link>
               </>
             )}
