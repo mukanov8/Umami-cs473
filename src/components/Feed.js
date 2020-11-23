@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
+import VideoPlayer from "./VideoPlayer";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import { CardHeader } from "@material-ui/core";
@@ -77,11 +78,20 @@ const Feed = ({ user }) => {
               title={p.userName}
               subheader="September 14, 2016"
             />
-            <CardMedia
+            {/* <CardMedia
               className={classes.media}
               image={p.video}
               title="Paella dish"
-            />
+            /> */}
+            {p.type.includes("video") ? (
+              <VideoPlayer videoUrl={p.video} />
+            ) : (
+              <CardMedia
+                className={classes.media}
+                image={p.video}
+                title="Image/Video"
+              />
+            )}
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
                 {p.caption}

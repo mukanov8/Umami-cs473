@@ -147,6 +147,7 @@ const UserInformation = ({ user, setUser }) => {
               //   {exp}
               // </div>
               <FormControlLabel
+                key={i}
                 id={exp}
                 value={exp}
                 control={<Radio />}
@@ -164,7 +165,12 @@ const UserInformation = ({ user, setUser }) => {
           >
             Exercise Goal:
             {ExerciseGoal.map((goal, i) => (
-              <FormControlLabel value={goal} control={<Radio />} label={goal} />
+              <FormControlLabel
+                key={i}
+                value={goal}
+                control={<Radio />}
+                label={goal}
+              />
             ))}
           </RadioGroup>
         </div>
@@ -179,6 +185,7 @@ const UserInformation = ({ user, setUser }) => {
             <div>Preferred Exercise Types:</div>
             {exercises.map((exercise, i) => (
               <FormControlLabel
+                key={i}
                 control={
                   <Checkbox checked={isChecked(exercise)} name={exercise} />
                 }

@@ -148,6 +148,7 @@ const CreatePost = ({ user }) => {
           .then((url) => {
             db.collection("posts").add({
               video: url,
+              type: video.type,
               caption: caption.value,
               blur: blur,
               public: publicBool,
