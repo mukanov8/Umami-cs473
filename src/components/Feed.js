@@ -80,7 +80,7 @@ const Feed = ({ user }) => {
                 </Typography>
               }
               title={p.userName}
-              subheader={p.timestamp.toDate().toString()}
+              subheader={p.timestamp && p.timestamp.toDate().toString()}
             />
             {/* <CardMedia
               className={classes.media}

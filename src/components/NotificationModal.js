@@ -8,6 +8,7 @@ import {
   Fade,
   Backdrop,
   Modal,
+  Input,
   TextField,
 } from "@material-ui/core";
 import SnackBar from "./SnackBar";
@@ -85,8 +86,7 @@ export default function NotificationModal({ senderName, receiverid }) {
         <Fade in={open}>
           <form className={classes.paper} onSubmit={handleSubmit}>
             <h2 id="transition-modal-title">Enter you message here</h2>
-            <TextField
-              multiline
+            <Input
               placeholder="Message..."
               inputProps={{ "aria-label": "description" }}
               fullWidth

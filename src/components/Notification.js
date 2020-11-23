@@ -4,23 +4,23 @@ import SnackBar from "./SnackBar";
 import { db } from "../firebase";
 import firebase from "firebase";
 
-const numToDay = (num) => {
-  if (num === 0) {
-    return "sunday";
-  } else if (num === 1) {
-    return "monday";
-  } else if (num === 2) {
-    return "tuesday";
-  } else if (num === 3) {
-    return "wednesday";
-  } else if (num === 4) {
-    return "thursday";
-  } else if (num === 5) {
-    return "friday";
-  } else if (num === 6) {
-    return "saturday";
-  }
-};
+// const numToDay = (num) => {
+//   if (num === 0) {
+//     return "sunday";
+//   } else if (num === 1) {
+//     return "monday";
+//   } else if (num === 2) {
+//     return "tuesday";
+//   } else if (num === 3) {
+//     return "wednesday";
+//   } else if (num === 4) {
+//     return "thursday";
+//   } else if (num === 5) {
+//     return "friday";
+//   } else if (num === 6) {
+//     return "saturday";
+//   }
+// };
 
 const Notification = ({ user }) => {
   const [data, setData] = useState([]);
@@ -33,7 +33,7 @@ const Notification = ({ user }) => {
       .get()
       .then((exercises) => {
         const d = new Date();
-        const day = numToDay(d.getDay());
+        const day = d.getDay();
         const soon = exercises.docs.find((e) => e.data().day === day);
         if (!soon) {
           return;
