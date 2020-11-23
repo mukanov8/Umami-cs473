@@ -1,7 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import VideoPlayer from "./VideoPlayer";
 import { db, storage } from "../firebase";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import {
+  CardHeader,
+  TextField,
+  Button,
+  CardActions,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  Grid,
+  Switch,
+} from "@material-ui/core";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+
+const AntSwitch = withStyles((theme) => ({
+  root: {
+    width: 28,
+    height: 16,
+    padding: 0,
+    display: "flex",
+  },
+  switchBase: {
+    padding: 2,
+    color: theme.palette.grey[500],
+    "&$checked": {
+      transform: "translateX(12px)",
+      color: theme.palette.common.white,
+      "& + $track": {
+        opacity: 1,
+        backgroundColor: theme.palette.primary.main,
+        borderColor: theme.palette.primary.main,
+      },
+    },
+  },
+  thumb: {
+    width: 12,
+    height: 12,
+    boxShadow: "none",
+  },
+  track: {
+    border: `1px solid ${theme.palette.grey[500]}`,
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor: theme.palette.common.white,
+  },
+  checked: {},
+}))(Switch);
 
 const useField = (type) => {
   const val = type === "bool" ? true : "";
@@ -17,18 +69,58 @@ const useField = (type) => {
   };
 };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 500,
+    maxHeight: 800,
+    marginBottom: 10,
+    margin: "auto",
+  },
+  media: {
+    height: 0,
+    margin: 10,
+    marginTop: -10,
+    marginBottom: -5,
+    paddingTop: "56.25%", // 16:9
+  },
+  action: {
+    fontSize: "1rem",
+  },
+  post: {
+    float: "right",
+  },
+  feed: {
+    textAlign: "center",
+  },
+}));
+
 const CreatePost = ({ user }) => {
   const history = useHistory();
   const caption = useField("text");
   const exercise = useField("text");
-  const blur = useField("bool");
-  const publicBool = useField("bool");
+  const [blur, setBlur] = useState(false);
+  const [publicBool, setPublicBool] = useState(true);
   const [progress, setProgress] = useState(0);
   const [video, setVideo] = useState();
+  const [videoUrl, setVideoUrl] = useState();
+  const [exercises, setExercises] = useState([]);
+  const classes = useStyles();
+
+  useEffect(() => {
+    db.collection("exercises")
+      .where("userid", "==", user.id)
+      .get()
+      .then((exes) => {
+        setExercises(exes.docs.map((e) => e.data()));
+      });
+  }, [user.id]);
 
   const onChange = (event) => {
     if (event.target.files[0]) {
       setVideo(event.target.files[0]);
+      setVideoUrl(URL.createObjectURL(event.target.files[0]));
+      console.log(video);
+      console.log("url", videoUrl);
     }
   };
 
@@ -57,9 +149,10 @@ const CreatePost = ({ user }) => {
           .then((url) => {
             db.collection("posts").add({
               video: url,
+              type: video.type,
               caption: caption.value,
-              blur: blur.value,
-              public: publicBool.value,
+              blur: blur,
+              public: publicBool,
               exercise: exercise.value,
               userId: user.id,
               userName: user.name,
@@ -70,29 +163,100 @@ const CreatePost = ({ user }) => {
       }
     );
   };
-
+  const hiddenFileInput = React.useRef(null);
+  const handleClick = (event) => {
+    hiddenFileInput.current.click();
+  };
+  const handleBlurChange = (event) => {
+    setBlur(event.target.checked);
+  };
+  const handlePublicChange = (event) => {
+    setPublicBool(event.target.checked);
+  };
   return (
     <div>
-      <h1>Compose</h1>
-      <div>
-        videoLink: <input type="file" onChange={onChange} />
-      </div>
-      <progress value={progress} max="100" />
-      <div>
-        Write your caption here:
-        <input {...caption} />
-      </div>
-      <div>
-        Choose your exercise: <input {...exercise} />
-      </div>
-      <div>
-        Blur? <input {...blur} />
-      </div>
-      <div>
-        Who can see your posts: <input {...publicBool} />
-      </div>
+      <Card className={classes.root}>
+        <CardHeader
+          subheader={
+            <div>
+              <Button onClick={handleClick}>Upload a video/image</Button>
+              <input
+                ref={hiddenFileInput}
+                type="file"
+                onChange={onChange}
+                style={{ display: "none" }}
+              />
+            </div>
+          }
+          title="Compose"
+          // subheader="September 14, 2016"
+        />
 
-      <button onClick={handleSubmit}>Post</button>
+        {video && video.type.includes("video") ? (
+          <VideoPlayer videoUrl={videoUrl} />
+        ) : (
+          <CardMedia
+            className={classes.media}
+            image={videoUrl}
+            title="Image/Video"
+          />
+        )}
+        <CardContent>
+          <TextField
+            multiline
+            rows={3}
+            placeholder="Write your caption here ..."
+            fullWidth
+            variant="outlined"
+            {...caption}
+          />
+          <Typography component="div">
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Blur Off</Grid>
+              <Grid item>
+                <AntSwitch
+                  checked={blur}
+                  onChange={handleBlurChange}
+                  name="checkedC"
+                />
+              </Grid>
+              <Grid item>On</Grid>
+            </Grid>
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Public Off</Grid>
+              <Grid item>
+                <AntSwitch
+                  checked={publicBool}
+                  onChange={handlePublicChange}
+                  name="checkedC"
+                />
+              </Grid>
+              <Grid item>On</Grid>
+            </Grid>
+          </Typography>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">Exercise</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              {...exercise}
+            >
+              {exercises &&
+                exercises.map((e, i) => (
+                  <MenuItem key={i} value={e.exercise}>
+                    {e.exercise}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+          <progress value={progress} max="100" />
+        </CardContent>
+        <CardActions>
+          <Button className={classes.post} onClick={handleSubmit}>
+            Post
+          </Button>
+        </CardActions>
+      </Card>
     </div>
   );
 };
