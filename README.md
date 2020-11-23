@@ -21,14 +21,6 @@ The major components inside src/components:
 Intructions:
 - Run 'npm install' command if you do not have npm installed or 'npm install npm@latest -g' to update it.
 - Run 'npm start'
-- Install styled components:
-  $ npm install --save styled-components
-- Material-UI icons:
-  $ npm add @material-ui/icons
-- Material-UI lab (experimental features):
-  $ npm install @material-ui/lab
-$ npm install react-markdown
-$ npm install github-markdown-css
 
 To confirm your Node/NPM installation, run the following commands on your terminal:
 - 'node -v'
