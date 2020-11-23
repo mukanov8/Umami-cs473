@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 500,
     marginBottom: 10,
+    margin: "auto",
   },
   avatar: {
     backgroundColor: red[500],
@@ -86,7 +87,7 @@ const AddTrainee = ({ user, setUser }) => {
 
   return (
     <Paper>
-      <h2>Co-Trainees</h2>
+      <h2 style={{ textAlign: "center" }}>Co-Trainees</h2>
       {users &&
         user.trainees &&
         user.trainees.length &&
@@ -101,7 +102,7 @@ const AddTrainee = ({ user, setUser }) => {
               setUser={setUser}
             />
           ))}
-      <h2>Add New Co-Trainees</h2>
+      <h2 style={{ textAlign: "center" }}>Add New Co-Trainees</h2>
       {users &&
         users
           .filter((u) => user.trainees && !user.trainees.includes(u.id))
