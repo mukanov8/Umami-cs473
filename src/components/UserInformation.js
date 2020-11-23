@@ -7,6 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
+import TextField from "@material-ui/core/TextField";
 
 const UserInformation = ({ user, setUser }) => {
   console.log(user);
@@ -16,11 +17,9 @@ const UserInformation = ({ user, setUser }) => {
   const levelOfExpertise = ["Home training", "Sports", "Gym Training"];
   const ExerciseGoal = ["Weight loss", "Weight gain", "Muscle gain"];
   const exercises = ["squats", "deadlifts", "pullups"];
-  const name = user.name;
-  const email = user.email;
-  const password = user.password;
 
   const [genderValue, setGenderValue] = React.useState(user.gender);
+  const [birthDatevalue, setBirthDate] = React.useState(user.birthdate);
   const [levelOfExpertiseValue, setLevelOfExpertise] = React.useState(
     user.levelOfExpertise
   );
@@ -30,6 +29,9 @@ const UserInformation = ({ user, setUser }) => {
 
   const handleGenderChange = (event) => {
     setGenderValue(event.target.value);
+  };
+  const hanldeBirthDateChange = (event) => {
+    setBirthDate(event.target.value);
   };
   const handleLevelOfExpertiseChange = (event) => {
     setLevelOfExpertise(event.target.value);
@@ -43,22 +45,22 @@ const UserInformation = ({ user, setUser }) => {
     setInfo(newCurrInfo);
   };
   function onUpdate() {
-    console.log(genderValue);
-    console.log("Doing something here");
-    console.log(exerciseGoalValue);
+    // Update the current info with the new information
     let newInfo = { ...currInfo };
     newInfo.gender = genderValue;
-    newInfo.birthdate = currInfo.birthdate;
+    newInfo.birthdate = birthDatevalue;
     newInfo.levelOfExpertise = levelOfExpertiseValue;
     newInfo.exerciseGoal = exerciseGoalValue;
     newInfo.preferredExercises = currInfo.preferredExercises;
+    setUser(newInfo);
+
+    // Update the current information to firestore
     var userRef = db.collection("users").doc(user.id);
     console.log(userRef);
     userRef
-      .update(newInfo)
+      .update(currInfo)
       .then(function () {
         console.log("Document successfully updated!");
-        setUser(newInfo);
       })
       .catch(function (error) {
         // The document probably doesn't exist.
@@ -70,37 +72,22 @@ const UserInformation = ({ user, setUser }) => {
     return currInfo.preferredExercises[exercise] === true;
   }
 
-  function setPreferredExercise(exercise, value) {
-    let newCurrInfo = { ...currInfo };
-    newCurrInfo.preferredExercises[exercise] = value;
-    setInfo(newCurrInfo);
-    console.log(currInfo.preferredExercises);
-  }
-
-  function getDefaultRadioValue(fieldName, value) {
-    return currInfo[fieldName] === value;
-  }
-
-  function getDefaultCheckBoxValue(fieldName, valueName) {
-    return currInfo[fieldName][valueName];
-  }
-
   if (user == null) {
     return <h1> Not logged in</h1>;
   } else {
     return (
       <div>
         <h1>User Information</h1>
-        <div>Name: {name}</div>
-        <div>Email: {email}</div>
-        <div>Password: {password}</div>
+        <div>Name: {user.name}</div>
+        <div>Email: {user.email}</div>
+        <div>Password: {user.password}</div>
         <div>
           Date of birth:{" "}
-          <input
-            type="text"
-            name="birthdate"
-            placeholder={currInfo.birthdate}
-            // onChange={handleRadioChange}
+          <TextField
+            id="outlined-basic"
+            label={birthDatevalue}
+            variant="outlined"
+            onChange={hanldeBirthDateChange}
           />
         </div>
         <div>
@@ -135,17 +122,6 @@ const UserInformation = ({ user, setUser }) => {
           >
             Level of Expertise:
             {levelOfExpertise.map((exp, i) => (
-              // <div key={i}>
-              //   {" "}
-              //   <input
-              //     type="radio"
-              //     value={exp}
-              //     name="levelOfExpertise"
-              //     checked={getDefaultRadioValue("levelOfExpertise", exp)}
-              //     onChange={handleRadioChange}
-              //   />{" "}
-              //   {exp}
-              // </div>
               <FormControlLabel
                 key={i}
                 id={exp}
@@ -175,12 +151,6 @@ const UserInformation = ({ user, setUser }) => {
           </RadioGroup>
         </div>
         <div>
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox checked={true} name="gilad" />}
-              label="Gilad Gray"
-            />
-          </FormGroup>
           <FormGroup>
             <div>Preferred Exercise Types:</div>
             {exercises.map((exercise, i) => (
