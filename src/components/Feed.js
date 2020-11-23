@@ -43,6 +43,7 @@ const Feed = ({ user }) => {
 
   useEffect(() => {
     db.collection("posts")
+      .orderBy("timestamp", "desc")
       .get()
       .then((res) => {
         setPosts(res.docs.map((p) => p.data()));
@@ -80,7 +81,7 @@ const Feed = ({ user }) => {
                 </Typography>
               }
               title={p.userName}
-              subheader="September 14, 2016"
+              subheader={p.timestamp.toDate().toString()}
             />
             {/* <CardMedia
               className={classes.media}
