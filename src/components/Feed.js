@@ -8,12 +8,13 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import Box from '@material-ui/core/Box';
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 500,
-    maxWidth: 800,
+    maxWidth: 500,
+    maxHeight: 800,
     marginBottom: 10,
   },
   media: {
@@ -46,7 +47,14 @@ const Feed = ({ user }) => {
   const classes = useStyles();
 
   return (
-    <Box style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column', display: 'flex'}}>
+    <Box
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        display: "flex",
+      }}
+    >
       <h1 className={classes.feed}>Feed</h1>
       {posts ? (
         posts.map((p, i) => (

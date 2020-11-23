@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { db } from "../firebase";
 import firebase from "firebase";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Icon, Input, Fade, Backdrop, Modal } from "@material-ui/core";
+import {
+  Button,
+  Icon,
+  Fade,
+  Backdrop,
+  Modal,
+  TextField,
+} from "@material-ui/core";
 import SnackBar from "./SnackBar";
 
 const useStyles = makeStyles((theme) => ({
@@ -78,9 +85,11 @@ export default function NotificationModal({ senderName, receiverid }) {
         <Fade in={open}>
           <form className={classes.paper} onSubmit={handleSubmit}>
             <h2 id="transition-modal-title">Enter you message here</h2>
-            <Input
+            <TextField
+              multiline
               placeholder="Message..."
               inputProps={{ "aria-label": "description" }}
+              fullWidth
               value={message}
               type="text"
               onChange={(event) => setMessage(event.target.value)}

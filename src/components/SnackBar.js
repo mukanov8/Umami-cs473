@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
@@ -31,6 +31,7 @@ export default function CustomizedSnackbars({ severity, open, setOpen }) {
   return (
     <div className={classes.root}>
       <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={open}
         autoHideDuration={severity === "success" ? 6000 : 10000}
         onClose={handleClose}

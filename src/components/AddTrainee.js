@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, CardHeader, Card, Button, Icon } from "@material-ui/core";
+import { Paper, CardHeader, Card, Button } from "@material-ui/core";
 // import CardMedia from "@material-ui/core/CardMedia";
 import { red } from "@material-ui/core/colors";
 import NotificationModal from "./NotificationModal";
@@ -86,7 +86,7 @@ const AddTrainee = ({ user, setUser }) => {
 
   return (
     <Paper>
-      <h2>Current Co-Trainees</h2>
+      <h2>Co-Trainees</h2>
       {users &&
         user.trainees &&
         user.trainees.length &&
