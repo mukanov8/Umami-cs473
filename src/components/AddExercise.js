@@ -4,7 +4,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Select from '@material-ui/core/Select';
@@ -301,9 +300,9 @@ const AddExercise= ({user}) => {
           value={exercise.value}
           onChange={exercise.onChange}
         >
-          <MenuItem value="jogging">Jogging</MenuItem>
-          <MenuItem value={"pushups"}>Push-ups</MenuItem>
-          <MenuItem value={"squats"}>Squats</MenuItem>
+          <MenuItem value="Jogging">Jogging</MenuItem>
+          <MenuItem value={"Pushups"}>Push-ups</MenuItem>
+          <MenuItem value={"Squats"}>Squats</MenuItem>
         </Select>
       </FormControl>
       
