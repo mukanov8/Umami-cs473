@@ -20,18 +20,19 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   }
 }));
+
 const useField = (type)=>{
   const [value,setValue] = useState('')
   const onChange =(event)=>{
     setValue(event.target.value)
   }
-
   return {
     type,
     value,
     onChange
   }
 }
+
 const AddExercise= ({user}) => {
   const classes = useStyles();
   const starthour = useField('hour')
@@ -50,7 +51,6 @@ const AddExercise= ({user}) => {
     sunday: false,
   });
 
-
   const submitExercise = (event) => {
     event.preventDefault();
     if (day.monday===false&&day.tuesday===false&&day.wednesday===false&&day.thursday===false&&day.friday===false&&day.saturday===false&&day.sunday===false) {
@@ -59,12 +59,12 @@ const AddExercise= ({user}) => {
       return;
     }
     if (starthour.value===""||startmin.value===""||finhour.value===""||finmin.value===""||exercise.value==="") {
-      alert("Fields must not be left empty.");
+      alert("The starting and finishing time of your exercise must be set.");
       history.push("/addexercise");
       return;
     }
     if (starthour.value===finhour.value&&startmin.value===finmin.value) {
-      alert("You should not exercise over 24 hours.");
+      alert("The starting and finishing time are identical.");
       history.push("/addexercise");
       return;
     }
@@ -145,10 +145,7 @@ const AddExercise= ({user}) => {
         finmin: finmin.value
       })
     }
-    
-
     history.push("/");
-
   };
 
   const handleChange = (event) => {
@@ -156,8 +153,8 @@ const AddExercise= ({user}) => {
   };
 
   const { monday, tuesday, wednesday,thursday,friday,saturday,sunday } = day;
+
   return (
-    
     <div>
       <FormControl component="fieldset" className={classes.checkControl}>
         <FormLabel component="legend">Register an exercise plan</FormLabel>
@@ -224,7 +221,6 @@ const AddExercise= ({user}) => {
           <MenuItem value={"21"}>21</MenuItem>
           <MenuItem value={"22"}>22</MenuItem>
           <MenuItem value={"23"}>23</MenuItem>
-          
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
@@ -237,7 +233,6 @@ const AddExercise= ({user}) => {
         >
           <MenuItem value={"00"}>0</MenuItem>
           <MenuItem value={"30"}>30</MenuItem>
-          
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
@@ -272,7 +267,6 @@ const AddExercise= ({user}) => {
           <MenuItem value={"21"}>21</MenuItem>
           <MenuItem value={"22"}>22</MenuItem>
           <MenuItem value={"23"}>23</MenuItem>
-          
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
@@ -301,14 +295,11 @@ const AddExercise= ({user}) => {
           <MenuItem value={"Squats"}>Squats</MenuItem>
         </Select>
       </FormControl>
-      
-
-      
       <form onSubmit={submitExercise}>
         <button type="submit">Submit</button>
       </form>
-
     </div>
   )
 }
+
 export default AddExercise;
