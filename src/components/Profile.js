@@ -34,6 +34,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 30,
     marginBottom: 10,
   },
+  post: {
+    maxWidth: 500,
+    maxHeight: 800,
+    minWidth: 275,
+    marginBottom: 10,
+    margin: "auto",
+    flexGrow: 1,
+    // display: "flex",
+  },
 }));
 
 const Profile = ({ user }) => {
@@ -45,14 +54,16 @@ const Profile = ({ user }) => {
       .get()
       .then((res) => {
         const allPosts = res.docs.map((p) => p.data());
+        const ids = allPosts.map((p) => p.userName);
 
-        setPosts(allPosts.filter((p) => (p.userId = user.Id)));
+        setPosts(allPosts.filter((p) => p.userName === user.name));
       });
   }, []);
 
   function displayCondition() {
     if (posts === undefined) return false;
     else {
+      console.log(posts.length);
       return posts.length > 0;
     }
   }
@@ -73,7 +84,7 @@ const Profile = ({ user }) => {
       <Container>
         {displayCondition() ? (
           posts.map((p, i) => (
-            <Card className={classes.root} key={i}>
+            <Card className={classes.post} key={i}>
               <CardHeader
                 avatar={
                   <Avatar aria-label="recipe" className={classes.avatar}>
