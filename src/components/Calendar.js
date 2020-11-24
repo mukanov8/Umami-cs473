@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   }
 }));
+
 const Calendar = ({user}) => {  
   const classes = useStyles();
   const ndate = new Date();
@@ -25,7 +26,6 @@ const Calendar = ({user}) => {
   db.collection("exercises")
       .where("userid", "==", user.id).orderBy("starthour")
       .get().then((exes) => {
-        
         setArray7(exes.docs.filter(part=>part.data().day===day).map((e)=>e.data().exercise+" Starting Time: "+e.data().starthour+":"+e.data().startmin+" Finishing Time: "+e.data().finhour+":"
         +e.data().finmin))
       });
@@ -33,11 +33,9 @@ const Calendar = ({user}) => {
     const handleChange = (event) => {
       switch(event.target.name) {
         case "monday":
-          // code block
           setState(1)
           break;
         case "tuesday":
-          // code block
           setState(2)
           break;
         case "wednesday":
@@ -53,7 +51,6 @@ const Calendar = ({user}) => {
           setState(6)
           break;
         default:
-          // code block
           setState(0)
       }
     };
@@ -95,8 +92,6 @@ const Calendar = ({user}) => {
           />
         </FormGroup>
       </FormControl>
-      
-      
       <h3>{sun.map(item => {
           return <li>{item}</li>;
         })
