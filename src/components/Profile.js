@@ -45,8 +45,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const exercises = [
+  "Squats",
+  "Deadlifts",
+  "Pullups",
+  "Pushups",
+  "Situps",
+  "Stretching",
+  "Flexibility",
+  "Aerobic",
+  "Weightlifting",
+  "Plank",
+  "Lunges",
+  "Bench",
+];
 const Profile = ({ user }) => {
   const [posts, setPosts] = useState();
+  const favExercises = exercises.filter((ex) => user.preferredExercises[ex]);
 
   useEffect(() => {
     db.collection("posts")
@@ -75,8 +90,17 @@ const Profile = ({ user }) => {
         {user.name[0].toUpperCase()}
       </Avatar>
       <h3>{user.name}</h3>
-      <h3>{user.exerciseGoal}</h3>
-      <div> </div>
+      <h3>
+        {user.exerciseGoal === "" ? "Exercise Goal Not Set" : user.exerciseGoal}
+      </h3>
+      <div>
+        <div> Favorite Exercises:</div>
+        <ul>
+          {favExercises.map((ex) => (
+            <li> {ex} </li>
+          ))}
+        </ul>
+      </div>
       <div className={classes.postsDisplay}>
         <div className={classes.smallMargin}>Posts by {user.name} </div>
       </div>
