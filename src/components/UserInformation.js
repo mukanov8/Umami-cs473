@@ -15,7 +15,20 @@ const UserInformation = ({ user, setUser }) => {
 
   const levelOfExpertise = ["Home training", "Sports", "Gym Training"];
   const ExerciseGoal = ["Weight loss", "Weight gain", "Muscle gain"];
-  const exercises = ["squats", "deadlifts", "pullups"];
+  const exercises = [
+    "Squats",
+    "Deadlifts",
+    "Pullups",
+    "Pushups",
+    "Situps",
+    "Stretching",
+    "Flexibility",
+    "Aerobic",
+    "Weightlifting",
+    "Plank",
+    "Lunges",
+    "Bench",
+  ];
 
   const [genderValue, setGenderValue] = React.useState(user.gender);
   const [birthDatevalue, setBirthDate] = React.useState(user.birthdate);

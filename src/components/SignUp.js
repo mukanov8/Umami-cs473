@@ -82,7 +82,20 @@ const SignUp = ({ setUser }) => {
       gender: "",
       levelOfExpertise: "",
       exerciseGoal: "",
-      preferredExercises: { squats: false, deadlifts: false, pullups: false },
+      preferredExercises: {
+        Squats: false,
+        Deadlifts: false,
+        Pullups: false,
+        Pushups: false,
+        Situps: false,
+        Stretching: false,
+        Flexibility: false,
+        Aerobic: false,
+        Weightlifting: false,
+        Plank: false,
+        Lunges: false,
+        Bench: false,
+      },
     };
     db.collection("users")
       .add(obj)
