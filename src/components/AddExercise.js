@@ -56,22 +56,22 @@ const AddExercise= ({user}) => {
 
   const submitExercise = (event) => {
     event.preventDefault();
-    if (day.monday==false&&day.tuesday==false&&day.wednesday==false&&day.thursday==false&&day.friday==false&&day.saturday==false&&day.sunday==false) {
+    if (day.monday===false&&day.tuesday===false&&day.wednesday===false&&day.thursday===false&&day.friday===false&&day.saturday===false&&day.sunday===false) {
       alert("At least one day of the week must be selected.");
       history.push("/addexercise");
       return;
     }
-    if (starthour.value==""||startmin.value==""||finhour.value==""||finmin.value==""||exercise.value=="") {
+    if (starthour.value===""||startmin.value===""||finhour.value===""||finmin.value===""||exercise.value==="") {
       alert("Fields must not be left empty.");
       history.push("/addexercise");
       return;
     }
-    if (starthour.value==finhour.value&&startmin.value==finmin.value) {
+    if (starthour.value===finhour.value&&startmin.value===finmin.value) {
       alert("You should not exercise over 24 hours.");
       history.push("/addexercise");
       return;
     }
-    if (day.sunday==true) {
+    if (day.sunday===true) {
       db.collection("exercises").add({
         userid:user.id,
         day: 0,
@@ -82,7 +82,7 @@ const AddExercise= ({user}) => {
         finmin: finmin.value
       })
     }
-    if (day.monday==true) {
+    if (day.monday===true) {
       db.collection("exercises").add({
         userid:user.id,
         day: 1,
@@ -93,7 +93,7 @@ const AddExercise= ({user}) => {
         finmin: finmin.value
       })
     }
-    if (day.tuesday==true) {
+    if (day.tuesday===true) {
       db.collection("exercises").add({
         userid:user.id,
         day: 2,
@@ -104,7 +104,7 @@ const AddExercise= ({user}) => {
         finmin: finmin.value
       })
     }
-    if (day.wednesday==true) {
+    if (day.wednesday===true) {
       db.collection("exercises").add({
         userid:user.id,
         day: 3,
@@ -115,7 +115,7 @@ const AddExercise= ({user}) => {
         finmin: finmin.value
       })
     }
-    if (day.thursday==true) {
+    if (day.thursday===true) {
       db.collection("exercises").add({
         userid:user.id,
         day: 4,
@@ -126,7 +126,7 @@ const AddExercise= ({user}) => {
         finmin: finmin.value
       })
     }
-    if (day.friday==true) {
+    if (day.friday===true) {
       db.collection("exercises").add({
         userid:user.id,
         day: 5,
@@ -137,7 +137,7 @@ const AddExercise= ({user}) => {
         finmin: finmin.value
       })
     }
-    if (day.saturday==true) {
+    if (day.saturday===true) {
       db.collection("exercises").add({
         userid:user.id,
         day: 6,
