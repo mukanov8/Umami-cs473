@@ -16,6 +16,7 @@ The major components inside src/components:
 - AddTrainees: Page where you can see your co-trainees, message them, and connect with new co-trainees.
 - AddExercise: Page for setting exercise schedules
 - UserInfo: Page for setting and updating user information
+- Calendar: Page for displaying the user's daily exercise schedule
 
 
 Intructions:
