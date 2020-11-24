@@ -28,7 +28,7 @@ const Calendar = ({user}) => {
   const weekday =ndate.getDay() ;
   useEffect(()=>{
   db.collection("exercises")
-      .where("userid", "==", user.id).orderBy("day")
+      .where("userid", "==", user.id).orderBy("starthour")
       .get().then((exes) => {
         
         setArray7(exes.docs.filter(part=>part.data().day==day).map((e)=>e.data().exercise+" Starting Time: "+e.data().starthour+":"+e.data().startmin+" Finishing Time: "+e.data().finhour+":"
