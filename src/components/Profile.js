@@ -1,12 +1,37 @@
 import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Avatar from "@material-ui/core/Avatar";
 
-const App = () => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  large: {
+    width: theme.spacing(15),
+    height: theme.spacing(15),
+  },
+  mainContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    display: "flex",
+  },
+}));
+
+const Profile = ({ user }) => {
+  const classes = useStyles();
   return (
-    <div>
-      <h1>Profile</h1>
-      <p>Backend - send all user information and posts made by the user</p>
-    </div>
+    <container className={classes.mainContainer}>
+      <Avatar aria-label="recipe" className={classes.large}>
+        {user.name[0].toUpperCase()}
+      </Avatar>
+      <h3>{user.name}</h3>
+      <h3>{user.exerciseGoal}</h3>
+    </container>
   );
 };
 
-export default App;
+export default Profile;

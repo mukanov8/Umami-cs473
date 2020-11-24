@@ -10,7 +10,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
 
 const UserInformation = ({ user, setUser }) => {
-  console.log(user);
   const [currInfo, setInfo] = useState({ ...user });
   // const [formValue, setFormValue] = useState({ name: "", email: "" });
 
@@ -61,6 +60,7 @@ const UserInformation = ({ user, setUser }) => {
       .update(currInfo)
       .then(function () {
         console.log("Document successfully updated!");
+        alert("Profile updated!");
       })
       .catch(function (error) {
         // The document probably doesn't exist.
