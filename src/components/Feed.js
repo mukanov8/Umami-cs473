@@ -61,7 +61,7 @@ const Feed = ({ user }) => {
     // }}
     >
       <h1 className={classes.feed}>Feed</h1>
-      {posts ? (
+      {posts &&
         posts.map((p, i) => (
           <Card className={classes.root} key={i}>
             <CardHeader
@@ -102,10 +102,7 @@ const Feed = ({ user }) => {
               </Typography>
             </CardContent>
           </Card>
-        ))
-      ) : (
-        <></>
-      )}
+        ))}
       {/* </div> */}
     </Container>
   );

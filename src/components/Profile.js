@@ -70,7 +70,7 @@ const Profile = ({ user }) => {
   const classes = useStyles();
 
   return (
-    <container className={classes.mainContainer}>
+    <Container className={classes.mainContainer}>
       <Avatar aria-label="recipe" className={classes.large}>
         {user.name[0].toUpperCase()}
       </Avatar>
@@ -123,7 +123,7 @@ const Profile = ({ user }) => {
           <h2 className={classes.mainContainer}> No Posts yet</h2>
         )}
       </Container>
-    </container>
+    </Container>
   );
 };
 
