@@ -9,6 +9,14 @@ import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ImageIcon from "@material-ui/icons/Image";
+import WorkIcon from "@material-ui/icons/Work";
+import BeachAccessIcon from "@material-ui/icons/BeachAccess";
+import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,10 +51,30 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     // display: "flex",
   },
+  exerciseList: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
 }));
 
+const exercises = [
+  "Squats",
+  "Deadlifts",
+  "Pullups",
+  "Pushups",
+  "Situps",
+  "Stretching",
+  "Flexibility",
+  "Aerobic",
+  "Weightlifting",
+  "Plank",
+  "Lunges",
+  "Bench",
+];
 const Profile = ({ user }) => {
   const [posts, setPosts] = useState();
+  const favExercises = exercises.filter((ex) => user.preferredExercises[ex]);
 
   useEffect(() => {
     db.collection("posts")
@@ -75,10 +103,37 @@ const Profile = ({ user }) => {
         {user.name[0].toUpperCase()}
       </Avatar>
       <h3>{user.name}</h3>
-      <h3>{user.exerciseGoal}</h3>
-      <div> </div>
+      <h3>
+        {user.exerciseGoal === "" ? "Exercise Goal Not Set" : user.exerciseGoal}
+      </h3>
+      <div className={classes.smallMargin}>
+        <div>
+          {" "}
+          <h6>Favorite Exercises: </h6>
+        </div>
+        {/* <ul>
+          {favExercises.map((ex) => (
+            <li> {ex} </li>
+          ))}
+        </ul> */}
+        <List className={classes.exerciseList}>
+          {favExercises.map((ex) => (
+            // <li> {ex} </li>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <FitnessCenterIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={ex} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
       <div className={classes.postsDisplay}>
-        <div className={classes.smallMargin}>Posts by {user.name} </div>
+        <div className={classes.smallMargin}>
+          <h6>Posts by {user.name}</h6>{" "}
+        </div>
       </div>
 
       <Container>

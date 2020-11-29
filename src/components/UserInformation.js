@@ -8,8 +8,18 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormGroup from "@material-ui/core/FormGroup";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    marginTop: theme.spacing(3),
+    fontSize: 20,
+  },
+}));
 
 const UserInformation = ({ user, setUser }) => {
+  const classes = useStyles();
   const [currInfo, setInfo] = useState({ ...user });
   // const [formValue, setFormValue] = useState({ name: "", email: "" });
 
@@ -91,11 +101,17 @@ const UserInformation = ({ user, setUser }) => {
     return (
       <div>
         <h1>User Information</h1>
-        <div>Name: {user.name}</div>
-        <div>Email: {user.email}</div>
-        <div>Password: {user.password}</div>
         <div>
-          Date of birth:{" "}
+          <h6>Name: {user.name}</h6>
+        </div>
+        <div>
+          <h6>Email: {user.email}</h6>
+        </div>
+        <div>
+          <h6>Password: {user.password}</h6>
+        </div>
+        <div>
+          <h6>Date of birth: </h6>
           <TextField
             id="outlined-basic"
             label={birthDatevalue}
@@ -104,7 +120,7 @@ const UserInformation = ({ user, setUser }) => {
           />
         </div>
         <div>
-          Gender:
+          <h6 className={classes.form}> Gender:</h6>
           <div>
             <RadioGroup
               aria-label="gender"
@@ -133,7 +149,7 @@ const UserInformation = ({ user, setUser }) => {
             value={levelOfExpertiseValue}
             onChange={handleLevelOfExpertiseChange}
           >
-            Level of Expertise:
+            <h6 className={classes.form}> Level of Expertise:</h6>
             {levelOfExpertise.map((exp, i) => (
               <FormControlLabel
                 key={i}
@@ -152,7 +168,7 @@ const UserInformation = ({ user, setUser }) => {
             value={exerciseGoalValue}
             onChange={handleExerciseGoalChange}
           >
-            Exercise Goal:
+            <h6 className={classes.form}> Exercise Goal:</h6>
             {ExerciseGoal.map((goal, i) => (
               <FormControlLabel
                 key={i}
@@ -165,7 +181,7 @@ const UserInformation = ({ user, setUser }) => {
         </div>
         <div>
           <FormGroup>
-            <div>Preferred Exercise Types:</div>
+            <h6 className={classes.form}> Preferred Exercise Types:</h6>
             {exercises.map((exercise, i) => (
               <FormControlLabel
                 key={i}
@@ -178,7 +194,10 @@ const UserInformation = ({ user, setUser }) => {
             ))}
           </FormGroup>
         </div>
-        <button onClick={onUpdate}>Update</button>
+        <Button onClick={onUpdate} variant="contained" color="primary">
+          Update
+        </Button>
+        {/* <button onClick={onUpdate}>Update</button> */}
       </div>
     );
   }
