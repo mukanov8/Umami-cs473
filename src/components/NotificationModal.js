@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NotificationModal({ senderName, receiverid }) {
+export default function NotificationModal({ senderName, receiverid, style }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -65,7 +65,7 @@ export default function NotificationModal({ senderName, receiverid }) {
       <Button
         variant="contained"
         color="primary"
-        className={classes.button}
+        className={style}
         endIcon={<Icon>send</Icon>}
         onClick={handleOpen}
       >

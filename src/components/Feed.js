@@ -10,6 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import Container from "@material-ui/core/Container";
+import NotificationModal from "./NotificationModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
   feed: {
     textAlign: "center",
   },
+  message: {
+    float: "right",
+    marginBottom: 20,
+  },
 }));
 
 const Feed = ({ user }) => {
@@ -52,14 +57,7 @@ const Feed = ({ user }) => {
   const classes = useStyles();
 
   return (
-    <Container
-    // style={{
-    //   alignItems: "center",
-    //   justifyContent: "center",
-    //   flexDirection: "column",
-    //   display: "flex",
-    // }}
-    >
+    <Container>
       <h1 className={classes.feed}>Feed</h1>
       {posts &&
         posts.map((p, i) => (
@@ -82,11 +80,6 @@ const Feed = ({ user }) => {
               title={p.userName}
               subheader={p.timestamp && p.timestamp.toDate().toString()}
             />
-            {/* <CardMedia
-              className={classes.media}
-              image={p.video}
-              title="Paella dish"
-            /> */}
             {p.type.includes("video") ? (
               <VideoPlayer videoUrl={p.video} />
             ) : (
@@ -100,6 +93,13 @@ const Feed = ({ user }) => {
               <Typography variant="body2" color="textSecondary" component="p">
                 {p.caption}
               </Typography>
+              {user && (
+                <NotificationModal
+                  style={classes.message}
+                  senderName={user.name}
+                  receiverid={p.id}
+                />
+              )}
             </CardContent>
           </Card>
         ))}

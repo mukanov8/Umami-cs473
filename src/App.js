@@ -145,7 +145,9 @@ const App = () => {
             <Route path="/about">
               <About />
             </Route>
-            <Route path="/">{user ? <Feed /> : <Redirect to="/login" />}</Route>
+            <Route path="/">
+              {user ? <Feed user={user} /> : <Redirect to="/login" />}
+            </Route>
           </Switch>
 
           {/* <div>

@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(1),
+    marginTop: 20,
   },
 }));
 
@@ -60,7 +61,11 @@ const TraineeCard = ({ user, setUser, u, button }) => {
               Connect
             </Button>
           ) : (
-            <NotificationModal senderName={user.name} receiverid={u.id} />
+            <NotificationModal
+              style={classes.button}
+              senderName={user.name}
+              receiverid={u.id}
+            />
           )
         }
         title={u.name}

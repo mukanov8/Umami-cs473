@@ -70,7 +70,7 @@ const Notification = ({ user }) => {
         db.collection("messages")
           .where("receiverId", "==", user.id)
           .orderBy("timestamp", "desc")
-          .limit(5)
+          .limit(9)
           .get()
           .then((messages) => {
             if (mounted) {
