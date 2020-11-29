@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import Container from "@material-ui/core/Container";
 import NotificationModal from "./NotificationModal";
+import Blur from "react-css-blur";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,11 +84,15 @@ const Feed = ({ user }) => {
             {p.type.includes("video") ? (
               <VideoPlayer videoUrl={p.video} />
             ) : (
-              <CardMedia
-                className={classes.media}
-                image={p.video}
-                title="Image/Video"
-              />
+              <>
+                <Blur radius={p.blur && "5px"}>
+                  <CardMedia
+                    className={classes.media}
+                    image={p.video}
+                    title="Image/Video"
+                  />
+                </Blur>
+              </>
             )}
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
