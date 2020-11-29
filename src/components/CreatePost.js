@@ -9,13 +9,13 @@ import {
   CardHeader,
   TextField,
   Button,
-  CardActions,
   FormControl,
   Select,
   MenuItem,
   InputLabel,
   Grid,
   Switch,
+  FormHelperText,
 } from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -88,9 +88,19 @@ const useStyles = makeStyles((theme) => ({
   },
   post: {
     float: "right",
+    marginLeft: "auto",
   },
   feed: {
     textAlign: "center",
+  },
+  formControl: {
+    marginRight: 40,
+    marginTop: 20,
+    // minWidth: 120,
+  },
+  selector: {
+    width: 50,
+    minWidth: 120,
   },
 }));
 
@@ -188,6 +198,27 @@ const CreatePost = ({ user }) => {
               />
             </div>
           }
+          action={
+            <FormControl className={classes.formControl} error>
+              <InputLabel id="demo-simple-select-error-label">
+                Exercise
+              </InputLabel>
+              <Select
+                className={classes.selector}
+                labelId="demo-simple-select-error-label"
+                id="demo-simple-select-error"
+                {...exercise}
+              >
+                {exercises &&
+                  exercises.map((e, i) => (
+                    <MenuItem key={i} value={e.exercise}>
+                      {e.exercise}
+                    </MenuItem>
+                  ))}
+              </Select>
+              <FormHelperText>Required</FormHelperText>
+            </FormControl>
+          }
           title="Compose"
           // subheader="September 14, 2016"
         />
@@ -235,28 +266,12 @@ const CreatePost = ({ user }) => {
               <Grid item>On</Grid>
             </Grid>
           </Typography>
-          <FormControl className={classes.formControl}>
-            <InputLabel id="demo-simple-select-label">Exercise</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              {...exercise}
-            >
-              {exercises &&
-                exercises.map((e, i) => (
-                  <MenuItem key={i} value={e.exercise}>
-                    {e.exercise}
-                  </MenuItem>
-                ))}
-            </Select>
-          </FormControl>
+
           <progress value={progress} max="100" />
-        </CardContent>
-        <CardActions>
           <Button className={classes.post} onClick={handleSubmit}>
             Post
           </Button>
-        </CardActions>
+        </CardContent>
       </Card>
     </div>
   );

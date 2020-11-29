@@ -13,9 +13,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ImageIcon from "@material-ui/icons/Image";
-import WorkIcon from "@material-ui/icons/Work";
-import BeachAccessIcon from "@material-ui/icons/BeachAccess";
+// import ImageIcon from "@material-ui/icons/Image";
+// import WorkIcon from "@material-ui/icons/Work";
+// import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 
 const useStyles = makeStyles((theme) => ({
@@ -82,16 +82,16 @@ const Profile = ({ user }) => {
       .get()
       .then((res) => {
         const allPosts = res.docs.map((p) => p.data());
-        const ids = allPosts.map((p) => p.userName);
+        // const ids = allPosts.map((p) => p.userName);
 
         setPosts(allPosts.filter((p) => p.userName === user.name));
       });
-  }, []);
+  }, [user.name]);
 
   function displayCondition() {
     if (posts === undefined) return false;
     else {
-      console.log(posts.length);
+      // console.log(posts.length);
       return posts.length > 0;
     }
   }
