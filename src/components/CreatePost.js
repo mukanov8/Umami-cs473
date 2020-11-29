@@ -119,14 +119,14 @@ const CreatePost = ({ user }) => {
     if (event.target.files[0]) {
       setVideo(event.target.files[0]);
       setVideoUrl(URL.createObjectURL(event.target.files[0]));
-      console.log(video);
-      console.log("url", videoUrl);
+      // console.log(video);
+      // console.log("url", videoUrl);
     }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("submit", video);
+    // console.log("submit", video);
     const upload = storage.ref(`posts/${video.name}`).put(video);
 
     upload.on(
@@ -192,15 +192,16 @@ const CreatePost = ({ user }) => {
           // subheader="September 14, 2016"
         />
 
-        {video && video.type.includes("video") ? (
-          <VideoPlayer videoUrl={videoUrl} />
-        ) : (
-          <CardMedia
-            className={classes.media}
-            image={videoUrl}
-            title="Image/Video"
-          />
-        )}
+        {video &&
+          (video.type.includes("video") ? (
+            <VideoPlayer videoUrl={videoUrl} />
+          ) : (
+            <CardMedia
+              className={classes.media}
+              image={videoUrl}
+              title="Image/Video"
+            />
+          ))}
         <CardContent>
           <TextField
             multiline

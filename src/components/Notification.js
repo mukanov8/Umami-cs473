@@ -4,29 +4,12 @@ import SnackBar from "./SnackBar";
 import { db } from "../firebase";
 import firebase from "firebase";
 
-// const numToDay = (num) => {
-//   if (num === 0) {
-//     return "sunday";
-//   } else if (num === 1) {
-//     return "monday";
-//   } else if (num === 2) {
-//     return "tuesday";
-//   } else if (num === 3) {
-//     return "wednesday";
-//   } else if (num === 4) {
-//     return "thursday";
-//   } else if (num === 5) {
-//     return "friday";
-//   } else if (num === 6) {
-//     return "saturday";
-//   }
-// };
-
 const Notification = ({ user }) => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
     // Notifications about scheduled exercises
     db.collection("exercises")
       .where("userid", "==", user.id)
@@ -90,17 +73,21 @@ const Notification = ({ user }) => {
           .limit(5)
           .get()
           .then((messages) => {
-            setData(
-              messages.docs.map((message) => ({
-                update:
-                  message.data().senderName + ": " + message.data().message,
-                timestamp:
-                  message.data().timestamp && message.data().timestamp.toDate(),
-              }))
-            );
-            setOpen(true);
+            if (mounted) {
+              setData(
+                messages.docs.map((message) => ({
+                  update:
+                    message.data().senderName + ": " + message.data().message,
+                  timestamp:
+                    message.data().timestamp &&
+                    message.data().timestamp.toDate(),
+                }))
+              );
+              setOpen(true);
+            }
           });
       });
+    return () => (mounted = false);
   }, [user.id]);
 
   return (
