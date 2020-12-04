@@ -290,9 +290,18 @@ const AddExercise= ({user}) => {
           value={exercise.value}
           onChange={exercise.onChange}
         >
-          <MenuItem value="Jogging">Jogging</MenuItem>
-          <MenuItem value={"Pushups"}>Push-ups</MenuItem>
+          <MenuItem value={"Pushups"}>Pushups</MenuItem>
           <MenuItem value={"Squats"}>Squats</MenuItem>
+          <MenuItem value={"Deadlifts"}>Deadlifts</MenuItem>
+          <MenuItem value={"Pullups"}>Pullups</MenuItem>
+          <MenuItem value={"Situps"}>Situps</MenuItem>
+          <MenuItem value={"Stretching"}>Stretching</MenuItem>
+          <MenuItem value={"Flexibility"}>Flexibility</MenuItem>
+          <MenuItem value={"Aerobic"}>Aerobic</MenuItem>
+          <MenuItem value={"Weightlifting"}>Weightlifting</MenuItem>
+          <MenuItem value={"Plank"}>Plank</MenuItem>
+          <MenuItem value={"Lunges"}>Lunges</MenuItem>
+          <MenuItem value={"Bench"}>Bench</MenuItem>
         </Select>
       </FormControl>
       <form onSubmit={submitExercise}>
