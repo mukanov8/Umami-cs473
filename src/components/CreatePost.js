@@ -5,6 +5,8 @@ import firebase from "firebase";
 import { useHistory } from "react-router-dom";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import Modal from "react-modal";
+
 import {
   CardHeader,
   TextField,
@@ -76,6 +78,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
     margin: "auto",
   },
+  modal_text: {
+    maxWidth: 500,
+    maxHeight: 800,
+    marginBottom: 10,
+  },
   media: {
     height: 0,
     margin: 10,
@@ -114,6 +121,7 @@ const CreatePost = ({ user }) => {
   const [video, setVideo] = useState();
   const [videoUrl, setVideoUrl] = useState();
   const [exercises, setExercises] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -199,25 +207,52 @@ const CreatePost = ({ user }) => {
             </div>
           }
           action={
-            <FormControl className={classes.formControl} error>
-              <InputLabel id="demo-simple-select-error-label">
-                Exercise
-              </InputLabel>
-              <Select
-                className={classes.selector}
-                labelId="demo-simple-select-error-label"
-                id="demo-simple-select-error"
-                {...exercise}
-              >
-                {exercises &&
-                  exercises.map((e, i) => (
-                    <MenuItem key={i} value={e.exercise}>
-                      {e.exercise}
-                    </MenuItem>
-                  ))}
-              </Select>
-              <FormHelperText>Required</FormHelperText>
-            </FormControl>
+            <div className="horizontal-wrapper">
+              <FormControl className={classes.formControl} error>
+                <InputLabel id="demo-simple-select-error-label">
+                  Exercise
+                </InputLabel>
+                <Select
+                  className={classes.selector}
+                  labelId="demo-simple-select-error-label"
+                  id="demo-simple-select-error"
+                  {...exercise}
+                >
+                  {exercises &&
+                    exercises.map((e, i) => (
+                      <MenuItem key={i} value={e.exercise}>
+                        {e.exercise}
+                      </MenuItem>
+                    ))}
+                </Select>
+
+                <FormHelperText>Required</FormHelperText>
+              </FormControl>
+              <div>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => setShowModal(true)}
+                >
+                  Info
+                </Button>
+                <Modal isOpen={showModal} contentLabel="Information about page">
+                  <Card className={classes.modal_text}>
+                    Creating a post is necessary so that your co-trainees see
+                    that you have completed the scheduled workout. This way,
+                    your co-trainees can rest assured that you have completed
+                    the session and they dont need to remind you about your
+                    workout.
+                  </Card>
+                  <Button
+                    variant="outlined"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </Button>
+                </Modal>
+              </div>
+            </div>
           }
           title="Compose"
           // subheader="September 14, 2016"
