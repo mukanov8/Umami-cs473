@@ -11,10 +11,6 @@ const VideoPlayer = ({ videoUrl }) => {
   // console.log(props.videoUrl);
   return (
     <div style={player}>
-      {/* <link
-        rel="stylesheet"
-        href="https://video-react.github.io/assets/video-react.css"
-      /> */}
       <Player src={videoUrl}></Player>
     </div>
   );

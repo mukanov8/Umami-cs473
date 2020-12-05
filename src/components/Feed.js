@@ -84,15 +84,13 @@ const Feed = ({ user }) => {
             {p.type.includes("video") ? (
               <VideoPlayer videoUrl={p.video} />
             ) : (
-              <>
-                <Blur radius={p.blur && "5px"}>
-                  <CardMedia
-                    className={classes.media}
-                    image={p.video}
-                    title="Image/Video"
-                  />
-                </Blur>
-              </>
+              <Blur radius={p.blur && "5px"}>
+                <CardMedia
+                  className={classes.media}
+                  image={p.video}
+                  title="Image/Video"
+                />
+              </Blur>
             )}
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
