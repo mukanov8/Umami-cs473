@@ -13,6 +13,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import { Link } from "react-router-dom";
 // import ImageIcon from "@material-ui/icons/Image";
 // import WorkIcon from "@material-ui/icons/Work";
 // import BeachAccessIcon from "@material-ui/icons/BeachAccess";
@@ -106,19 +107,14 @@ const Profile = ({ user }) => {
       <h3>
         {user.exerciseGoal === "" ? "Exercise Goal Not Set" : user.exerciseGoal}
       </h3>
+      <Link to="/userinfo">Go to User information</Link>
       <div className={classes.smallMargin}>
         <div>
-          {" "}
           <h6>Favorite Exercises: </h6>
         </div>
-        {/* <ul>
-          {favExercises.map((ex) => (
-            <li> {ex} </li>
-          ))}
-        </ul> */}
+
         <List className={classes.exerciseList}>
           {favExercises.map((ex) => (
-            // <li> {ex} </li>
             <ListItem>
               <ListItemAvatar>
                 <Avatar>
