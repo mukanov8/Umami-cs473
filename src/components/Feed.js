@@ -3,7 +3,7 @@ import { db } from "../firebase";
 import VideoPlayer from "./VideoPlayer";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import { CardHeader,Button } from "@material-ui/core";
+import { CardHeader, Button } from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
@@ -45,13 +45,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Feed = ({ user }) => {
-  const history=useHistory()
+  const history = useHistory();
   const [posts, setPosts] = useState();
   const GoToCompose = (event) => {
     event.preventDefault();
-    
-    history.push("/createpost")
-    return
+
+    history.push("/createpost");
+    return;
   };
   useEffect(() => {
     db.collection("posts")
@@ -68,8 +68,8 @@ const Feed = ({ user }) => {
     <Container>
       <h1 className={classes.feed}>Feed</h1>
       <Button className={classes.post} onClick={GoToCompose}>
-            Compose
-          </Button>
+        Compose
+      </Button>
       {posts &&
         posts.map((p, i) => (
           <Card className={classes.root} key={i}>
@@ -110,7 +110,7 @@ const Feed = ({ user }) => {
                 <NotificationModal
                   style={classes.message}
                   senderName={user.name}
-                  receiverid={p.id}
+                  receiverid={p.userId}
                 />
               )}
             </CardContent>
