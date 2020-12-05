@@ -236,7 +236,11 @@ const CreatePost = ({ user }) => {
                 >
                   Info
                 </Button>
-                <Modal isOpen={showModal} contentLabel="Information about page">
+                <Modal
+                  ariaHideApp={false}
+                  isOpen={showModal}
+                  contentLabel="Information about page"
+                >
                   <Card className={classes.modal_text}>
                     Creating a post is necessary so that your co-trainees see
                     that you have completed the scheduled workout. This way,
