@@ -3,7 +3,8 @@ import { db } from "../firebase";
 import VideoPlayer from "./VideoPlayer";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import { CardHeader, Button } from "@material-ui/core";
+import { CardHeader, Fab } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
@@ -12,6 +13,7 @@ import { red } from "@material-ui/core/colors";
 import Container from "@material-ui/core/Container";
 import NotificationModal from "./NotificationModal";
 import Blur from "react-css-blur";
+import { green } from "@material-ui/core/colors";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,17 +44,28 @@ const useStyles = makeStyles((theme) => ({
     float: "right",
     marginBottom: 20,
   },
+  addButton: {
+    top: "auto",
+    bottom: 20,
+    position: "fixed",
+    zIndex: 1,
+    right: "10%",
+    margin: "0 auto",
+    backgroundColor: green[500],
+  },
 }));
 
 const Feed = ({ user }) => {
   const history = useHistory();
   const [posts, setPosts] = useState();
-  const GoToCompose = (event) => {
+
+  const goToCompose = (event) => {
     event.preventDefault();
 
     history.push("/createpost");
     return;
   };
+
   useEffect(() => {
     db.collection("posts")
       .orderBy("timestamp", "desc")
@@ -67,9 +80,9 @@ const Feed = ({ user }) => {
   return (
     <Container>
       <h1 className={classes.feed}>Feed</h1>
-      <Button className={classes.post} onClick={GoToCompose}>
-        Compose
-      </Button>
+      <Fab aria-label="add" className={classes.addButton} onClick={goToCompose}>
+        <AddIcon />
+      </Fab>
       {posts &&
         posts.map((p, i) => (
           <Card className={classes.root} key={i}>

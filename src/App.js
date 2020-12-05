@@ -74,9 +74,6 @@ const App = () => {
             <Link style={padding} to="/userinfo">
               User Information
             </Link>
-            <Link style={padding} to="/createpost">
-              Compose
-            </Link>
             <Link style={padding} to="/profile">
               Profile
             </Link>
