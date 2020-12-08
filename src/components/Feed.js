@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: 20,
     position: "fixed",
     zIndex: 1,
-    right: "10%",
+    right: "20%",
     margin: "0 auto",
     backgroundColor: green[500],
   },
