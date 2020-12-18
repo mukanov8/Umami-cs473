@@ -142,9 +142,9 @@ const App = () => {
                 <Redirect to="/login" />
               )}
             </Route>
-            <Route path="/about">
+            {/* <Route path="/about">
               <About />
-            </Route>
+            </Route> */}
             <Route path="/">
               {user ? <Feed user={user} /> : <Redirect to="/login" />}
             </Route>
