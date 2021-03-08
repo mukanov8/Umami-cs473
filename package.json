@@ -10,7 +10,7 @@
     "@testing-library/react": "^11.1.2",
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.21.0",
-    "firebase": "^8.0.2",
+    "firebase": "^8.2.10",
     "github-markdown-css": "^4.0.0",
     "react": "^17.0.1",
     "react-css-blur": "^1.1.1",
